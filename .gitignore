@@ -1,0 +1,6 @@
+.env
+cov/
+build/
+coverage/
+lcov/
+target/
