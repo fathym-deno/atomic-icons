@@ -1,5 +1,4 @@
-import { JSX } from "preact";
-import { asset } from "$fresh/runtime.ts";
+import { asset, JSX } from "../src.deps.ts";
 
 export type IconProps = JSX.SVGAttributes<SVGSVGElement>;
 

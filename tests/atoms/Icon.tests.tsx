@@ -1,4 +1,4 @@
-import { assertEquals, describe, render } from "../test.deps.ts";
+import { assertEquals, describe, render } from "../tests.deps.ts";
 import { Icon } from "../../src/atoms/Icon.tsx";
 
 describe("Icon Tests", () => {

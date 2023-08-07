@@ -1,4 +1,4 @@
-import { build, emptyDir } from "$dnt";
+import { build, emptyDir } from "./scripts.deps.ts";
 
 await emptyDir("./build");
 
