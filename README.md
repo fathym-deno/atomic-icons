@@ -38,19 +38,23 @@ With our sprite sheet in hand and references added, we can now use the basic
 `<Icon />` control. You'll need to import the Icon and then use it in your JSX
 
 ```JSX
-import { Icon } from "$atomic/newicons";
+import { Icon } from "$atomic/icons";
 
-<Icon src="./icons.sprite.svg" icon="x-circle" />
+export default function Page() {
+  return (
+    <>
+      <Icon src="./icons.sprite.svg" icon="x-circle" />
 
-<Icon src="./icons.sprite.svg" icon="check-circle" />
+      <Icon src="./icons.sprite.svg" icon="check-circle" />
+    </>
+  );
+}
 ```
 
 You can also leverage tailwind styles to start controlling the icons look and
 feel:
 
 ```JSX
-import { Icon } from "$atomic/icons";
-
 <Icon
   src="./icons.sprite.svg"
   icon="x-circle"
