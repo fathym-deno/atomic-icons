@@ -75,6 +75,10 @@ perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Icônes(https://icones.js.org/collection/all)
 
+#### Manual Addition
+
+#### Configured Addition
+
 ### Simple Icons (https://simpleicons.org/)
 
 ## Thank You's
