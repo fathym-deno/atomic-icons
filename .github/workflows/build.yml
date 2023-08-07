@@ -1,0 +1,79 @@
+name: build
+
+permissions:
+  contents: write
+
+on: push
+
+env:
+  MainBranch: main
+  MainFormat: "${major}.${minor}.${patch}"
+  
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-22.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+        
+      - name: Set variables
+        id: vars
+        run: |
+          echo "currentBranch=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      - name: Set main version format
+        id: mainFormat
+        if: steps.vars.outputs.currentBranch == env.MainBranch
+        run: echo 'format=${{ env.MainFormat }}' >> $GITHUB_OUTPUT\
+
+      - name: Set prerelease version format
+        id: prereleaseFormat
+        if: steps.vars.outputs.currentBranch != env.MainBranch
+        run: echo 'format=${{ env.MainFormat }}-${{ steps.vars.outputs.currentBranch }}${increment}' >> $GITHUB_OUTPUT\
+
+      - name: Deno Setup
+        uses: denoland/setup-deno@v1.1.0
+        with:
+          deno-version: v1.x.x
+
+      - name: Deno Build
+        run: deno task build
+
+      - name: Set Version
+        id: version
+        uses: paulhatch/semantic-version@v5.0.2
+        with:
+          tag_prefix: "v"
+          major_pattern: "(MAJOR)"
+          minor_pattern: "(MINOR)"
+          version_format: ${{ steps.mainFormat.outputs.format || steps.prereleaseFormat.outputs.format }}
+          # namespace: ${{ steps.vars.outputs.currentBranch == env.MainBranch && null || steps.vars.outputs.currentBranch }}
+          # search_commit_body: false
+          user_format_type: "json"
+          enable_prerelease_mode: ${{ steps.vars.outputs.currentBranch != env.MainBranch }}
+
+      - name: NPM Package Build
+        run: |
+          deno task npm:build ${{ steps.version.outputs.version }}
+          npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+
+      - name: NPM Package Publish Release
+        if: steps.vars.outputs.currentBranch == env.MainBranch
+        run: deno task npm:publish
+
+      - name: NPM Package Publish Prerelease
+        if: steps.vars.outputs.currentBranch != env.MainBranch
+        run: deno task npm:publish --tag ${{ steps.vars.outputs.currentBranch }}
+
+      - name: Tag commit ${{ steps.version.outputs.version }}
+        run: |
+          git tag v${{ steps.version.outputs.version }} ${{ steps.commit.outputs.commit }}
+          git push origin v${{ steps.version.outputs.version }}
+          
