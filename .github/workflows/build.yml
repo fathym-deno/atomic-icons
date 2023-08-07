@@ -59,18 +59,18 @@ jobs:
           user_format_type: "json"
           enable_prerelease_mode: ${{ steps.vars.outputs.currentBranch != env.MainBranch }}
 
-      - name: NPM Package Build
-        run: |
-          deno task npm:build ${{ steps.version.outputs.version }}
-          npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+      # - name: NPM Package Build
+      #   run: |
+      #     deno task npm:build ${{ steps.version.outputs.version }}
+      #     npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
 
-      - name: NPM Package Publish Release
-        if: steps.vars.outputs.currentBranch == env.MainBranch
-        run: deno task npm:publish
+      # - name: NPM Package Publish Release
+      #   if: steps.vars.outputs.currentBranch == env.MainBranch
+      #   run: deno task npm:publish
 
-      - name: NPM Package Publish Prerelease
-        if: steps.vars.outputs.currentBranch != env.MainBranch
-        run: deno task npm:publish --tag ${{ steps.vars.outputs.currentBranch }}
+      # - name: NPM Package Publish Prerelease
+      #   if: steps.vars.outputs.currentBranch != env.MainBranch
+      #   run: deno task npm:publish --tag ${{ steps.vars.outputs.currentBranch }}
 
       - name: Tag commit ${{ steps.version.outputs.version }}
         run: |
