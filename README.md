@@ -5,10 +5,73 @@ customzied icon sets for delivery via Deno Fresh.
 
 ## Getting Started
 
+To get started, you can add an import map to your deno configuration.
+
+```Typescript
+"imports": {
+  ...
+  "$atomic/icons": "https://deno.land/x/fathym_atomic_icons/mod.ts",
+  ...
+},
+```
+
+### Basic Sprite Configuration
+
+If you have an existing SVG sprite sheet, you can use it by placing it in the
+static folder of your Deno Fresh project. If you want to start creating your own
+icon set sprite sheet, you can start from this one:
+
+```SVG ./static/icons.sprite.svg
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+ >
+    <defs>
+        <symbol viewBox="0 0 16 16" id="x-circle"><g fill="currentColor"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8L4.646 5.354a.5.5 0 0 1 0-.708z"></path></g></symbol>
+        
+        <symbol viewBox="0 0 24 24" id="check-circle"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4l4.25 4.25ZM12 22q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"></path></symbol>
+    </defs>
+ </svg>
+```
+
+With our sprite sheet in hand and references added, we can now use the basic
+`<Icon />` control. You'll need to import the Icon and then use it in your JSX
+
+```JSX
+import { Icon } from "$atomic/newicons";
+
+<Icon src="./icons.sprite.svg" icon="x-circle" />
+
+<Icon src="./icons.sprite.svg" icon="check-circle" />
+```
+
+You can also leverage tailwind styles to start controlling the icons look and
+feel:
+
+```JSX
+import { Icon } from "$atomic/icons";
+
+<Icon
+  src="./icons.sprite.svg"
+  icon="x-circle"
+  class="text-red-500 w-[50px] h-[50px]"
+/>;
+```
+
+### 
+
 ## Icon Sources
 
-These are locations where you can find SVG icons to inlcude in your customized
-icon set.
+Any SVG can be shifted into a sprite sheet, the following provide a nice place
+to find the icons you want to use in your organizations customized icon set.
+
+### Naming Icons in an Icon Set
+
+It can be tempting to want to leverage the ids of the icons you pull in from a
+library. However, we recommend that you rename them to fit a more generic usage.
+For example, instead of using the Icones id `material-symbols-check-circle`, we
+like to use something like `close`. This makes it simple from an atomic usage
+perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Icônes(https://icones.js.org/collection/all)
 
