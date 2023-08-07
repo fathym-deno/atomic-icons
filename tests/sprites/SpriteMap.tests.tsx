@@ -9,20 +9,11 @@ const expectedSpriteSheet =
 
 Deno.test("Sprite Map Direct", async () => {
   const map = new SpriteMap({
-    SVGMap: new Map([
-      [
-        "x-circle",
-        new URL(
-          "https://api.iconify.design/bi:x-circle.svg",
-        ),
-      ],
-      [
-        "check-circle",
-        new URL(
-          "https://api.iconify.design/material-symbols:check-circle.svg",
-        ),
-      ],
-    ]),
+    SVGMap: {
+      "x-circle": "https://api.iconify.design/bi:x-circle.svg",
+      "check-circle":
+        "https://api.iconify.design/material-symbols:check-circle.svg",
+    },
   });
 
   const spriteSheet = await map.ToSheet();
@@ -37,20 +28,11 @@ Deno.test("Sprite Map Direct", async () => {
 
 Deno.test("Use File Sheet", async () => {
   await useFileSheet(spritePath, {
-    SVGMap: new Map([
-      [
-        "x-circle",
-        new URL(
-          "https://api.iconify.design/bi:x-circle.svg",
-        ),
-      ],
-      [
-        "check-circle",
-        new URL(
-          "https://api.iconify.design/material-symbols:check-circle.svg",
-        ),
-      ],
-    ]),
+    SVGMap: {
+      "x-circle": "https://api.iconify.design/bi:x-circle.svg",
+      "check-circle":
+        "https://api.iconify.design/material-symbols:check-circle.svg",
+    },
   });
 
   const dec = new TextDecoder();

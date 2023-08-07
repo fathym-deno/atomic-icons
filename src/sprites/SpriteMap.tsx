@@ -28,7 +28,7 @@ export async function useFileSheet(
 }
 
 export interface SpriteMapConfig {
-  SVGMap: Map<string, URL>;
+  SVGMap: Record<string, string | URL>;
 }
 
 export class SpriteMap {
@@ -47,26 +47,23 @@ export class SpriteMap {
 
   //# API Methods
   public async ToSheet(): Promise<JSX.Element> {
-    const map = [...this.config.SVGMap];
+    const map = Object.keys(this.config.SVGMap).map(
+      (key) => {
+        return { key, url: this.config.SVGMap[key] };
+      },
+    );
 
     const symbols = new Array<JSX.Element>();
 
-    for (const [key, url] of map) {
+    for (let { key, url } of map) {
+      if (typeof url === "string") {
+        url = new URL(url) as URL;
+      }
+
       const sym = await this.convertSvgToSymbol(key, url);
 
       symbols.push(sym);
     }
-
-    // for (const [key, url] of map) {
-
-    //   syms.push(sym);
-    // }
-
-    // const symsMap = syms.reduce((syms, s) => {
-    //   syms += s;
-
-    //   return syms;
-    // }, "");
 
     const svg = (
       <svg xmlns="http://www.w3.org/2000/svg">
