@@ -15,7 +15,7 @@ To get started, you can add an import map to your deno configuration.
 },
 ```
 
-### Basic Sprite Configuration
+### Manual Sprite Setup
 
 If you have an existing SVG sprite sheet, you can use it by placing it in the
 static folder of your Deno Fresh project. If you want to start creating your own
@@ -62,7 +62,7 @@ feel:
 />;
 ```
 
-### 
+### Sprite Configuration
 
 ## Icon Sources
 
