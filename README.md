@@ -226,5 +226,4 @@ developed into this project.
 
 https://rodneylab.com/deno-fresh-svg-sprites/
 
-```
-```
+https://benadam.me/thoughts/react-svg-sprites/
