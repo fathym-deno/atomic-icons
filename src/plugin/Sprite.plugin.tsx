@@ -12,28 +12,32 @@ export function spriteMapPlugin(
 ): Plugin {
   //   await useSheetComponents(config);
 
+  console.log(config.SpriteSheet);
+
   return {
     name: "fathym_atomic_icons",
     routes: [
       {
         path: config.SpriteSheet,
         handler: {
-          async GET(_, ctx) {
-            const map = new SpriteMap(config.Sprites!);
+          GET(_, ctx) {
+            // const map = new SpriteMap(config.Sprites!);
 
-            const spriteSheet = await map.ToSheet();
+            // const spriteSheet = await map.ToSheet();
 
             console.log("<><><><><><><><><><><><><><><><><><><><><>");
 
-            console.log(spriteSheet);
+            // console.log(spriteSheet);
 
-            return ctx.render(spriteSheet);
+            return ctx.render({});
+            // return ctx.render(spriteSheet);
           },
         },
         component: (props: PageProps<JSX.Element | null>) => {
           console.log("================================");
 
-          return props.data!;
+          //   return props.data!;
+          return <div>A thing</div>;
         },
       },
     ],
