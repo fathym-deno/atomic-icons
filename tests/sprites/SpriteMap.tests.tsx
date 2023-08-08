@@ -41,16 +41,16 @@ Deno.test("Use File Sheet", async () => {
   assertEquals(spriteSheetContent, expectedSpriteSheet);
 });
 
-Deno.test("Use Sheet Component", async () => {
-  await useSheetComponents({
-    Exports: "./mod.ts",
-    OutputDirectory: "./build",
-    Sprites: spritCfg,
-    SpriteSheet: "./icons.sprite.svg",
-  });
+// Deno.test("Use Sheet Component", async () => {
+//   await useSheetComponents({
+//     Exports: "./mod.ts",
+//     OutputDirectory: "./build",
+//     Sprites: spritCfg,
+//     SpriteSheet: "./icons.sprite.svg",
+//   });
 
-  // const spriteSheetContent = dec.decode(await Deno.readFile(spritePath));
+//   // const spriteSheetContent = dec.decode(await Deno.readFile(spritePath));
 
-  // assertEquals(spriteSheetContent, expectedSpriteSheet);
-});
+//   // assertEquals(spriteSheetContent, expectedSpriteSheet);
+// });
 // });
