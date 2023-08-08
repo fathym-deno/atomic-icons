@@ -134,11 +134,7 @@ again we may want to extend this further to provide specific components for use
 with each icon. In this way, we can use type safe components like:
 
 ```jsx
-import {
-  CheckCircleIcon,
-  ExclaimIcon,
-  XCircleIcon,
-} from "../build/icons/_exports.tsx";
+import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$atomic/mycons";
 
 export default function Page() {
   return (
@@ -182,6 +178,24 @@ the icon components:
 
 ```cli
 deno task icons
+```
+
+As mentioned above, you can now use your custom icon components with ease:
+
+```jsx
+import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$atomic/mycons";
+
+export default function Page() {
+  return (
+    <>
+      <XCircleIcon class="text-purple-500 w-[50px] h-[50px]" />
+
+      <CheckCircleIcon class="text-purple-500 w-[50px] h-[50px]" />
+
+      <ExclaimIcon class="text-purple-500 w-[50px] h-[50px]" />
+    </>
+  );
+}
 ```
 
 ### Automatic Plugin with Fresh
