@@ -23,6 +23,8 @@ export function spriteMapPlugin(
 
             const spriteSheet = await map.ToSheet();
 
+            console.log("<><><><><><><><><><><><><><><><><><><><><>");
+
             console.log(spriteSheet);
 
             return ctx.render(spriteSheet);
@@ -35,12 +37,14 @@ export function spriteMapPlugin(
         },
       },
     ],
-    // async renderAsync(ctx) {
-    //   const res = await ctx.renderAsync();
+    async renderAsync(ctx) {
+      const res = await ctx.renderAsync();
 
-    //   console.log(res.htmlText);
+      //   console.log(res.htmlText);
 
-    //   return {};
-    // },
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+      return {};
+    },
   };
 }
