@@ -7,10 +7,10 @@ import {
 } from "../sprites/SpriteMap.tsx";
 import { PageProps, Plugin } from "../src.deps.ts";
 
-export async function spriteMapPlugin(
+export function spriteMapPlugin(
   config: SpriteMapGenerateConfig,
-): Promise<Plugin> {
-  await useSheetComponents(config);
+): Plugin {
+  //   await useSheetComponents(config);
 
   return {
     name: "fathym_atomic_icons",
