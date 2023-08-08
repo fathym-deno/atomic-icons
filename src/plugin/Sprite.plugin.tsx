@@ -7,7 +7,7 @@ import {
 } from "../sprites/SpriteMap.tsx";
 import { PageProps, Plugin } from "../src.deps.ts";
 
-export default async function spriteMap(
+export async function spriteMap(
   config: SpriteMapGenerateConfig,
 ): Promise<Plugin> {
   await useSheetComponents(config);
