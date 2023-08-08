@@ -50,19 +50,16 @@ export async function useSheetComponents(
     `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
   );
 
-  const exportsPath = config.Exports || "./mod.ts";
+  const denoCfgPath = "./deno.json";
 
-  let exports = await exists(exportsPath)
-    ? await Deno.readTextFile(exportsPath)
-    : "";
+  const denoCfg = JSON.parse(
+    await exists(denoCfgPath) ? await Deno.readTextFile(denoCfgPath) : "",
+  );
 
-  const exportConfig = `export * from "${outDir}/_exports.ts"`;
+  denoCfg.imports[`$atomic/${config.Exports || "mycons"}`] =
+    "${outDir}/_exports.ts";
 
-  if (exports.indexOf(exportConfig) < 0) {
-    exports += `\n${exportConfig}`;
-  }
-
-  await Deno.writeTextFile(exportsPath, exports);
+  await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
 
   const iconExports: string[] = [];
 

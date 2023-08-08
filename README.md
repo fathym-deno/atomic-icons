@@ -87,7 +87,9 @@ const SVGMap: Record<string, string | URL> = {
   exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
 };
 
-await useFileSheet('./static/icons.sprite.svg', { SVGMap });
+const spriteConfig: SpriteMapConfig = { SVGMap };
+
+await useFileSheet('./static/icons.sprite.svg', spriteConfig);
 ```
 
 Then let's add a new task to our `deno.json` file:
@@ -165,9 +167,14 @@ const SVGMap: Record<string, string | URL> = {
   exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
 };
 
-await useFileSheet('./static/icons.sprite.svg', { SVGMap });
+const spriteConfig: SpriteMapConfig = { SVGMap };
 
-await useSheetComponents('./static/icons.sprite.svg', { SVGMap });
+await useFileSheet('./static/icons.sprite.svg', spriteConfig);
+
+await useSheetComponents('./static/icons.sprite.svg', { 
+  Sprites: spriteConfig,
+  SpriteSheet: './icons.sprite.svg',
+});
 ```
 
 And again we can run our task to not only generate the sprite sheet, but also
