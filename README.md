@@ -7,13 +7,21 @@ customzied icon sets for delivery via Deno Fresh.
 
 To get started, you can add an import map to your deno configuration.
 
-```Typescript
+```ts
 "imports": {
   ...
   "$atomic/icons": "https://deno.land/x/fathym_atomic_icons/mod.ts",
   ...
 },
 ```
+
+### Naming Icons in an Icon Set
+
+It can be tempting to want to leverage the ids of the icons you pull in from a
+library. However, we recommend that you rename them to fit a more generic usage.
+For example, instead of using the Icones id `material-symbols-check-circle`, we
+like to use something like `close`. This makes it simple from an atomic usage
+perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Manual Sprite Setup
 
@@ -62,20 +70,74 @@ feel:
 />;
 ```
 
-### Sprite Configuration
+### Sprite Sheet Configuration
+
+Manually copying SVG and Symbol content into our sprite sheet is not really the
+way we want to manage change. Instead, we can leverage some tooling from this
+library. To start, let's create a new `icons.atomic.ts` file in the scripts
+directory.
+
+```ts ./scripts/icons.atomic.ts
+import { useFileSheet } from '$atomic/icons';
+
+const SVGMap: Record<string, string | URL> = {
+  'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
+  'check-circle':
+    'https://api.iconify.design/material-symbols:check-circle.svg',
+  exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
+};
+
+await useFileSheet('./static/icons.sprite.svg', {
+  SVGMap,
+});
+```
+
+Then let's add a new task to our `deno.json` file:
+
+```Typescript
+"tasks": {
+  ...
+  "icons": "deno run -A ./scripts/icons.atomic.ts",
+  ...
+},
+```
+
+And now we can easily generate our sprite sheet after updating the SVG maps:
+
+```cli
+deno task icons
+```
+
+This will generate an SVG at the file path given in `useFileSheet`. Now we can
+use the icons just as before:
+
+```JSX
+import { Icon } from "$atomic/icons";
+
+export default function Page() {
+  return (
+    <>
+      <Icon src="./icons.sprite.svg" icon="x-circle" />
+
+      <Icon src="./icons.sprite.svg" icon="check-circle" />
+
+      <Icon src="./icons.sprite.svg" icon="exclaim" />
+    </>
+  );
+}
+```
+
+### Automatic Plugin with Fresh
+
+Now let's look at how we can use the build in plugin to set this all up in an
+even more automated fashion.
+
+...
 
 ## Icon Sources
 
 Any SVG can be shifted into a sprite sheet, the following provide a nice place
 to find the icons you want to use in your organizations customized icon set.
-
-### Naming Icons in an Icon Set
-
-It can be tempting to want to leverage the ids of the icons you pull in from a
-library. However, we recommend that you rename them to fit a more generic usage.
-For example, instead of using the Icones id `material-symbols-check-circle`, we
-like to use something like `close`. This makes it simple from an atomic usage
-perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Icônes(https://icones.js.org/collection/all)
 
@@ -91,3 +153,6 @@ Thank you out to the following people for their work on some of the concepts
 developed into this project.
 
 https://rodneylab.com/deno-fresh-svg-sprites/
+
+```
+```
