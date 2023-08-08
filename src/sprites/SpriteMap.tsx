@@ -1,5 +1,14 @@
 // deno-lint-ignore-file no-explicit-any
-import { dirname, js2xml, JSX, render, xml2js } from "../src.deps.ts";
+import {
+  dirname,
+  exists,
+  join,
+  js2xml,
+  JSX,
+  pascalCase,
+  render,
+  xml2js,
+} from "../src.deps.ts";
 
 export async function useSheet(
   config: SpriteMapConfig,
@@ -27,8 +36,73 @@ export async function useFileSheet(
   });
 }
 
+export async function useSheetComponents(
+  config: SpriteMapGenerateConfig,
+): Promise<void> {
+  const outDir = `${config.OutputDirectory || "./build"}/icons`;
+
+  await Deno.mkdir(outDir, {
+    recursive: true,
+  });
+
+  await Deno.writeTextFile(
+    join(outDir, "icon.deps.ts"),
+    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
+  );
+
+  const exportsPath = config.Exports || "./mod.ts";
+
+  let exports = await exists(exportsPath)
+    ? await Deno.readTextFile(exportsPath)
+    : "";
+
+  const exportConfig = `export * from "${outDir}/_exports.ts"`;
+
+  if (exports.indexOf(exportConfig) < 0) {
+    exports += `\n${exportConfig}`;
+  }
+
+  await Deno.writeTextFile(exportsPath, exports);
+
+  const iconExports: string[] = [];
+
+  await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
+    const iconName = `${pascalCase(icon)}Icon`;
+
+    const iconTsx = `./${iconName}.tsx`;
+
+    iconExports.push(`export * from "${iconTsx}"`);
+
+    const iconFilePath = join(outDir, iconTsx);
+
+    const iconFile = `import { Icon, IconProps } from "./icon.deps.ts"
+
+export function ${iconName}(props: IconProps) {
+  return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
+}
+`;
+
+    await Deno.writeTextFile(iconFilePath, iconFile);
+  });
+
+  await Deno.writeTextFile(
+    join(outDir, "_exports.ts"),
+    iconExports.join("\n"),
+  );
+}
+
 export interface SpriteMapConfig {
   SVGMap: Record<string, string | URL>;
+}
+
+export interface SpriteMapGenerateConfig {
+  Exports: string;
+
+  OutputDirectory: string;
+
+  Sprites: SpriteMapConfig;
+
+  SpriteSheet: string;
 }
 
 export class SpriteMap {
@@ -46,6 +120,9 @@ export class SpriteMap {
   //#
 
   //# API Methods
+  public async GenerateComponents(): Promise<void> {
+  }
+
   public async ToSheet(): Promise<JSX.Element> {
     const map = Object.keys(this.config.SVGMap).map(
       (key) => {

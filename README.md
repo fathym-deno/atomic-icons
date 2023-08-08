@@ -87,9 +87,7 @@ const SVGMap: Record<string, string | URL> = {
   exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
 };
 
-await useFileSheet('./static/icons.sprite.svg', {
-  SVGMap,
-});
+await useFileSheet('./static/icons.sprite.svg', { SVGMap });
 ```
 
 Then let's add a new task to our `deno.json` file:
@@ -125,6 +123,58 @@ export default function Page() {
     </>
   );
 }
+```
+
+### Component Generation
+
+Its nice to have a simple way to access our icon set from the sprite sheet, but
+again we may want to extend this further to provide specific components for use
+with each icon. In this way, we can use type safe components like:
+
+```jsx
+import {
+  CheckCircleIcon,
+  ExclaimIcon,
+  XCircleIcon,
+} from "../build/icons/_exports.tsx";
+
+export default function Page() {
+  return (
+    <>
+      <XCircleIcon />
+
+      <CheckCircleIcon />
+
+      <ExclaimIcon />
+    </>
+  );
+}
+```
+
+To achieve this, we will again need to invoke some helpers. Let's head back into
+the `./scripts/icons.atomic.ts` file and we can configure the generation of our
+icons. We can go ahead and add the generation call here:
+
+```ts ./scripts/icons.atomic.ts
+import { useFileSheet, useSheetComponents } from '$atomic/icons';
+
+const SVGMap: Record<string, string | URL> = {
+  'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
+  'check-circle':
+    'https://api.iconify.design/material-symbols:check-circle.svg',
+  exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
+};
+
+await useFileSheet('./static/icons.sprite.svg', { SVGMap });
+
+await useSheetComponents('./static/icons.sprite.svg', { SVGMap });
+```
+
+And again we can run our task to not only generate the sprite sheet, but also
+the icon components:
+
+```cli
+deno task icons
 ```
 
 ### Automatic Plugin with Fresh
