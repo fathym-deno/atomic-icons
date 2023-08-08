@@ -57,7 +57,7 @@ export async function useSheetComponents(
   );
 
   denoCfg.imports[`$atomic/${config.Exports || "mycons"}`] =
-    "${outDir}/_exports.ts";
+    `${outDir}/_exports.ts`;
 
   await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
 
