@@ -23,20 +23,24 @@ export function spriteMapPlugin(
 
             const spriteSheet = await map.ToSheet();
 
+            console.log(spriteSheet);
+
             return ctx.render(spriteSheet);
           },
         },
         component: (props: PageProps<JSX.Element | null>) => {
+          console.log("================================");
+
           return props.data!;
         },
       },
     ],
-    async renderAsync(ctx) {
-      const res = await ctx.renderAsync();
+    // async renderAsync(ctx) {
+    //   const res = await ctx.renderAsync();
 
-      console.log(res.htmlText);
+    //   console.log(res.htmlText);
 
-      return {};
-    },
+    //   return {};
+    // },
   };
 }
