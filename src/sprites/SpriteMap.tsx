@@ -96,9 +96,9 @@ export interface SpriteMapConfig {
 }
 
 export interface SpriteMapGenerateConfig {
-  Exports: string;
+  Exports?: string;
 
-  OutputDirectory: string;
+  OutputDirectory?: string;
 
   Sprites: SpriteMapConfig;
 
