@@ -180,7 +180,8 @@ the icon components:
 deno task icons
 ```
 
-As mentioned above, you can now use your custom icon components with ease:
+Make sure you add `build/` to your `.gitignore` file. Then, as mentioned above,
+you can now use your custom icon components with ease:
 
 ```jsx
 import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$atomic/mycons";
