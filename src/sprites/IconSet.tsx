@@ -41,7 +41,7 @@ export async function useIconSetComponents(
 ): Promise<void> {
   const outDir = `${config.OutputDirectory || "./build"}/iconset`;
 
-  const iconsDir = join(outDir, "icons");
+  const iconsDir = `${outDir}/icons`;
 
   await Deno.mkdir(iconsDir, {
     recursive: true,
@@ -55,6 +55,8 @@ export async function useIconSetComponents(
     !(await exists(iconDepsPath)) ||
     (await Deno.readTextFile(iconDepsPath) != iconDeps)
   ) {
+    console.log("Creating Icon Dependencies");
+
     await Deno.writeTextFile(iconDepsPath, iconDeps);
   }
 
@@ -73,7 +75,7 @@ export async function useIconSetComponents(
   let curIcons: string[] = [];
 
   for await (const icon of await Deno.readDir(iconsDir)) {
-    if (icon.isFile) {
+    if (icon.isFile && icon.name != "_exports") {
       curIcons.push(icon.name);
     }
   }
