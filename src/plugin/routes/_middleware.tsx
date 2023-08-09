@@ -11,6 +11,8 @@ export function spriteMapMiddleware() {
       // }
       // ctx.state.context = Context.instance();
       console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+      console.log(JSON.stringify(ctx));
       return await ctx.next();
     }
   };

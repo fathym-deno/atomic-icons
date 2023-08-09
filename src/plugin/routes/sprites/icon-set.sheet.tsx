@@ -16,6 +16,8 @@ export function establishIconSetSheet(sprites: SpriteMapConfig) {
   };
 
   function component(props: PageProps<JSX.Element>) {
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
     return props.data;
   }
 
