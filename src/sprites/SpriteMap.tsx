@@ -65,7 +65,7 @@ export async function useSheetComponents(
   if (!denoCfg.imports[importPath]) {
     denoCfg.imports[importPath] = `${outDir}/_exports.ts`;
 
-    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+    // await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
   }
 
   const iconExports: string[] = [];
@@ -89,10 +89,10 @@ export function ${iconName}(props: IconProps) {
     await Deno.writeTextFile(iconFilePath, iconFile);
   });
 
-  await Deno.writeTextFile(
-    join(outDir, "_exports.ts"),
-    iconExports.join("\n"),
-  );
+  // await Deno.writeTextFile(
+  //   join(outDir, "_exports.ts"),
+  //   iconExports.join("\n"),
+  // );
 }
 
 export interface SpriteMapConfig {
