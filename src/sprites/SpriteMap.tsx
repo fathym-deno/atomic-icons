@@ -45,10 +45,10 @@ export async function useSheetComponents(
     recursive: true,
   });
 
-  await Deno.writeTextFile(
-    join(outDir, "icon.deps.ts"),
-    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
-  );
+  // await Deno.writeTextFile(
+  //   join(outDir, "icon.deps.ts"),
+  //   `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
+  // );
 
   const denoCfgPath = "./deno.json";
 
@@ -70,7 +70,7 @@ export async function useSheetComponents(
 
   const iconExports: string[] = [];
 
-  await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
+  Object.keys(config.Sprites.SVGMap).forEach((icon) => {
     const iconName = `${pascalCase(icon)}Icon`;
 
     const iconTsx = `./${iconName}.tsx`;
@@ -86,7 +86,7 @@ export function ${iconName}(props: IconProps) {
 }
 `;
 
-    await Deno.writeTextFile(iconFilePath, iconFile);
+    // await Deno.writeTextFile(iconFilePath, iconFile);
   });
 
   // await Deno.writeTextFile(
