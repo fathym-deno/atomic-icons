@@ -43,11 +43,7 @@ export async function useIconSetComponents(
 
   const iconsDir = join(outDir, "icons");
 
-  await exists(iconsDir) && Deno.remove(iconsDir, {
-    recursive: true,
-  });
-
-  await Deno.mkdir(outDir, {
+  await Deno.mkdir(iconsDir, {
     recursive: true,
   });
 
@@ -74,10 +70,12 @@ export async function useIconSetComponents(
     denoCfg.imports = {};
   }
 
-  if (!denoCfg.imports[importPath]) {
-    denoCfg.imports[importPath] = `${outDir}/_exports.ts`;
+  let curIcons: string[] = [];
 
-    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+  for await (const icon of await Deno.readDir(iconsDir)) {
+    if (icon.isFile) {
+      curIcons.push(icon.name);
+    }
   }
 
   const iconExports: string[] = [];
@@ -85,9 +83,11 @@ export async function useIconSetComponents(
   await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
     const iconName = `${pascalCase(icon)}Icon`;
 
-    const iconTsx = `${iconName}.tsx`;
+    curIcons = curIcons.filter((ci) => ci != iconName);
 
-    iconExports.push(`export * from "./icons/${iconTsx}"`);
+    const iconTsx = `./${iconName}.tsx`;
+
+    iconExports.push(`export * from "${iconTsx}"`);
 
     const iconFilePath = join(iconsDir, iconTsx);
 
@@ -106,7 +106,17 @@ export function ${iconName}(props: IconProps) {
     }
   });
 
-  const exportTextsPath = join(outDir, "_exports.ts");
+  if (!denoCfg.imports[importPath]) {
+    denoCfg.imports[importPath] = `${iconsDir}/_exports.ts`;
+
+    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+  }
+
+  await curIcons.forEach(async (icon) => {
+    await Deno.remove(join(iconsDir, icon));
+  });
+
+  const exportTextsPath = join(iconsDir, "_exports.ts");
   const exportsText = iconExports.join("\n");
 
   if (
