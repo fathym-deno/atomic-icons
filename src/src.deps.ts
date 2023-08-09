@@ -1,10 +1,12 @@
 export * from "../deps.ts";
 export * from "https://esm.sh/preact@10.16.0";
 export { asset } from "https://deno.land/x/fresh@1.3.1/runtime.ts";
-export {
-  type PageProps,
-  type Plugin,
-  type PluginRenderResult,
+export type {
+  Handlers,
+  MiddlewareHandlerContext,
+  PageProps,
+  Plugin,
+  PluginRenderResult,
 } from "https://deno.land/x/fresh@1.3.1/server.ts";
 export { js2xml } from "https://deno.land/x/js2xml@1.0.4/mod.ts";
 export { xml2js } from "https://deno.land/x/xml2js@1.0.0/mod.ts";
