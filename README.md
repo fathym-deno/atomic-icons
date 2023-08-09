@@ -228,18 +228,19 @@ export const curIconSetGenerateConfig: IconSetGenerateConfig = {
 Now we need to register our plugin in the `main.ts` file:
 
 ```ts ./main.ts
-import { curIconSetConfig } from './fathym-atomic-icons.config.ts';
+import { curIconSetGenerateConfig } from './fathym-atomic-icons.config.ts';
 
 await start(manifest, {
-  plugins: [await iconSetPlugin(curIconSetConfig)],
+  plugins: [await iconSetPlugin(curIconSetGenerateConfig)],
 });
 ```
 
-Two things will happen anytime that the icon set configurations are updated:
+Two things will happen when this plugin is configured:
 
-1. New explicit icon components will be generated.
+1. Anytime that the icon set configurations are updated, new explicit icon
+   components will be generated.
 2. A new route will be configured that will render the most up to date sprite
-   sheet.
+   sheet for the icon set.
 
 That's it, you can now use your icons just like before, taking note that the
 sprite sheet is available on the path specified in config (`/iconset/icons`)
