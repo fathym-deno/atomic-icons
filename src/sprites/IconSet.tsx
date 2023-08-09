@@ -45,10 +45,16 @@ export async function useIconSetComponents(
     recursive: true,
   });
 
-  await Deno.writeTextFile(
-    join(outDir, "icon.deps.ts"),
-    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
-  );
+  const iconDepsPath = join(outDir, "icon.deps.ts");
+  const iconDeps =
+    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`;
+
+  if (
+    await exists(iconDepsPath) &&
+    (await Deno.readTextFile(iconDepsPath) != iconDeps)
+  ) {
+    await Deno.writeTextFile(iconDepsPath, iconDeps);
+  }
 
   const denoCfgPath = "./deno.json";
 
@@ -86,13 +92,23 @@ export function ${iconName}(props: IconProps) {
 }
 `;
 
-    await Deno.writeTextFile(iconFilePath, iconFile);
+    if (
+      await exists(iconFilePath) &&
+      (await Deno.readTextFile(iconFilePath) != iconFile)
+    ) {
+      await Deno.writeTextFile(iconFilePath, iconFile);
+    }
   });
 
-  await Deno.writeTextFile(
-    join(outDir, "_exports.ts"),
-    iconExports.join("\n"),
-  );
+  const exportTextsPath = join(outDir, "_exports.ts");
+  const exportsText = iconExports.join("\n");
+
+  if (
+    await exists(exportTextsPath) &&
+    (await Deno.readTextFile(exportTextsPath) != exportsText)
+  ) {
+    await Deno.writeTextFile(exportTextsPath, exportsText);
+  }
 }
 
 export interface IconSetConfig {
