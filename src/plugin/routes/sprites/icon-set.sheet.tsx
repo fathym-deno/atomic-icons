@@ -11,9 +11,6 @@ export function establishIconSetSheet(iconSet: IconSetConfig) {
 
       const svg = render(spriteSheet);
 
-      console.log(svg);
-
-      // return ctx.render(spriteSheet);
       return new Response(svg, {
         headers: { "Content-Type": "image/svg+xml" },
       });

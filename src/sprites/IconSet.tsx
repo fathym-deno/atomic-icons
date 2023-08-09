@@ -70,8 +70,6 @@ export function ${iconName}(props: IconProps) {
       const curText = pathExists && await Deno.readTextFile(path);
 
       if (curText != newContent) {
-        console.log("Creating Icon Dependencies");
-
         await Deno.writeTextFile(path, newContent);
       }
     },
