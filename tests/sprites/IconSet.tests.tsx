@@ -2,8 +2,8 @@ import { assertEquals, describe, render } from "../tests.deps.ts";
 import {
   IconSet,
   IconSetConfig,
-  useFileSheet,
-  useSheetComponents,
+  useFileIconSet,
+  useIconSetComponents,
 } from "../../src/sprites/IconSet.tsx";
 
 // await describe("Sprite Map Tests", async () => {
@@ -34,7 +34,7 @@ Deno.test("Sprite Map Direct", async () => {
 });
 
 Deno.test("Use File Sheet", async () => {
-  await useFileSheet(spritePath, spritCfg);
+  await useFileIconSet(spritePath, spritCfg);
 
   const spriteSheetContent = await Deno.readTextFile(spritePath);
 
@@ -42,7 +42,7 @@ Deno.test("Use File Sheet", async () => {
 });
 
 // Deno.test("Use Sheet Component", async () => {
-//   await useSheetComponents({
+//   await useIconSetComponents({
 //     Exports: "./mod.ts",
 //     OutputDirectory: "./build",
 //     Sprites: spritCfg,
