@@ -9,10 +9,10 @@ import { MiddlewareHandlerContext, PageProps, Plugin } from "../src.deps.ts";
 import { spriteMapMiddleware } from "./routes/_middleware.tsx";
 import { establishIconSetSheet } from "./routes/sprites/icon-set.sheet.tsx";
 
-export function spriteMapPlugin(
+export async function spriteMapPlugin(
   config: SpriteMapGenerateConfig,
-): Plugin {
-  //   await useSheetComponents(config);
+): Promise<Plugin> {
+  await useSheetComponents(config);
 
   const IconSetSheet = establishIconSetSheet(config.Sprites!);
 
