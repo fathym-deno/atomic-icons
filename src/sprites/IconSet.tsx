@@ -53,7 +53,7 @@ export async function useIconSetComponents(
 
   if (
     !(await exists(iconDepsPath)) ||
-    (await Deno.readTextFile(iconDepsPath) != iconDeps)
+    ((await Deno.readTextFile(iconDepsPath)) != iconDeps)
   ) {
     console.log("Creating Icon Dependencies");
 
@@ -102,10 +102,14 @@ export function ${iconName}(props: IconProps) {
 
     if (
       !(await exists(iconFilePath)) ||
-      (await Deno.readTextFile(iconFilePath) != iconFile)
+      ((await Deno.readTextFile(iconFilePath)) != iconFile)
     ) {
       await Deno.writeTextFile(iconFilePath, iconFile);
     }
+  });
+
+  await curIcons.forEach(async (icon) => {
+    await Deno.remove(join(iconsDir, icon));
   });
 
   if (!denoCfg.imports[importPath]) {
@@ -114,16 +118,12 @@ export function ${iconName}(props: IconProps) {
     await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
   }
 
-  await curIcons.forEach(async (icon) => {
-    await Deno.remove(join(iconsDir, icon));
-  });
-
   const exportTextsPath = join(iconsDir, "_exports.ts");
   const exportsText = iconExports.join("\n");
 
   if (
     !(await exists(exportTextsPath)) ||
-    (await Deno.readTextFile(exportTextsPath) != exportsText)
+    ((await Deno.readTextFile(exportTextsPath)) != exportsText)
   ) {
     await Deno.writeTextFile(exportTextsPath, exportsText);
   }

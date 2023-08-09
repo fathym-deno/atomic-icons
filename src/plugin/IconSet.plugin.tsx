@@ -7,10 +7,10 @@ import { Plugin } from "../src.deps.ts";
 import { IconSetMiddleware } from "./routes/_middleware.tsx";
 import { establishIconSetSheet } from "./routes/sprites/icon-set.sheet.tsx";
 
-export function iconSetPlugin(
+export async function iconSetPlugin(
   config: IconSetGenerateConfig,
-): Plugin {
-  // await useIconSetComponents(config);
+): Promise<Plugin> {
+  await useIconSetComponents(config);
 
   const iconSetSheet = establishIconSetSheet(config.Sprites!);
 
