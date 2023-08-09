@@ -56,10 +56,17 @@ export async function useSheetComponents(
     await exists(denoCfgPath) ? await Deno.readTextFile(denoCfgPath) : "",
   );
 
-  denoCfg.imports[`$atomic/${config.Exports || "mycons"}`] =
-    `${outDir}/_exports.ts`;
+  const importPath = `$atomic/${config.Exports || "mycons"}`;
 
-  await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+  if (!denoCfg.imports) {
+    denoCfg.imports = {};
+  }
+
+  if (!denoCfg.imports[importPath]) {
+    denoCfg.imports[importPath] = `${outDir}/_exports.ts`;
+
+    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+  }
 
   const iconExports: string[] = [];
 
