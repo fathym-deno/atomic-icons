@@ -1,4 +1,10 @@
-import { assertEquals, describe, render } from "../tests.deps.ts";
+import {
+  assertEquals,
+  BASE_URL,
+  describe,
+  puppet_config,
+  render,
+} from "../tests.deps.ts";
 import {
   IconSet,
   IconSetConfig,
@@ -40,6 +46,20 @@ Deno.test("Use File Sheet", async () => {
 
   assertEquals(spriteSheetContent, expectedSpriteSheet);
 });
+
+// Deno.test("Test Plugin", {
+//   sanitizeResources: false,
+//   sanitizeOps: false,
+// }, async () => {
+//   freshPuppetTestWrapper(puppet_config, async (t, page) => {
+//     await t.step("The homepage should work", async () => {
+//       const response = await page.goto(`${BASE_URL}`, {
+//         waitUntil: "networkidle2",
+//       });
+//       assertEquals(response.status(), Status.OK);
+//     });
+//   });
+// });
 
 // Deno.test("Use Sheet Component", async () => {
 //   await useIconSetComponents({
