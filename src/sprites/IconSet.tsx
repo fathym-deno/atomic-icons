@@ -114,9 +114,9 @@ export function ${iconName}(props: IconProps) {
     );
   });
 
-  await curIcons.forEach(async (icon) => {
-    await Deno.remove(join(options.IconsDir, icon));
-  });
+  // await curIcons.forEach(async (icon) => {
+  //   await Deno.remove(join(options.IconsDir, icon));
+  // });
 
   const denoCfgPath = "./deno.json";
 
