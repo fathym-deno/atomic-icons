@@ -41,7 +41,7 @@ export async function useIconSetComponents(
 ): Promise<void> {
   const outDir = `${config.OutputDirectory || "./build"}/icons`;
 
-  await Deno.remove(outDir, {
+  await exists(outDir) && Deno.remove(outDir, {
     recursive: true,
   });
 
