@@ -106,7 +106,7 @@ export function ${iconName}(props: IconProps) {
 
     const iconTsx = `${iconName}.tsx`;
 
-    iconExports.push(`export * from "./icons/${iconTsx}"`);
+    iconExports.push(`export * from "./${iconTsx}"`);
 
     await options.EnsureFile(
       options.IconFilePath(iconTsx),
