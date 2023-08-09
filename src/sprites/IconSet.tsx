@@ -85,9 +85,9 @@ export async function useIconSetComponents(
 
     curIcons = curIcons.filter((ci) => ci != iconName);
 
-    const iconTsx = `./${iconName}.tsx`;
+    const iconTsx = `${iconName}.tsx`;
 
-    iconExports.push(`export * from "${iconTsx}"`);
+    iconExports.push(`export * from "./icons/${iconTsx}"`);
 
     const iconFilePath = join(iconsDir, iconTsx);
 
