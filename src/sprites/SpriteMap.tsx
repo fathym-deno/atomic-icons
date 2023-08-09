@@ -45,10 +45,10 @@ export async function useSheetComponents(
     recursive: true,
   });
 
-  // await Deno.writeTextFile(
-  //   join(outDir, "icon.deps.ts"),
-  //   `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
-  // );
+  await Deno.writeTextFile(
+    join(outDir, "icon.deps.ts"),
+    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
+  );
 
   const denoCfgPath = "./deno.json";
 
