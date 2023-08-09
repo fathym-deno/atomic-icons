@@ -1,9 +1,9 @@
 import {
   assertEquals,
-  BASE_URL,
+  createHandler,
   describe,
-  puppet_config,
   render,
+  ServeHandlerInfo,
 } from "../tests.deps.ts";
 import {
   IconSet,
@@ -11,6 +11,11 @@ import {
   useFileIconSet,
   useIconSetComponents,
 } from "../../src/sprites/IconSet.tsx";
+// import manifest from "../../fresh.gen.ts";
+
+// const CONN_INFO: ServeHandlerInfo = {
+//   remoteAddr: { hostname: "127.0.0.1", port: 53496, transport: "tcp" },
+// };
 
 // await describe("Sprite Map Tests", async () => {
 const spritePath = "C:\\temp\\test\\static\\icons.sprite.svg";
@@ -47,17 +52,13 @@ Deno.test("Use File Sheet", async () => {
   assertEquals(spriteSheetContent, expectedSpriteSheet);
 });
 
-// Deno.test("Test Plugin", {
-//   sanitizeResources: false,
-//   sanitizeOps: false,
-// }, async () => {
-//   freshPuppetTestWrapper(puppet_config, async (t, page) => {
-//     await t.step("The homepage should work", async () => {
-//       const response = await page.goto(`${BASE_URL}`, {
-//         waitUntil: "networkidle2",
-//       });
-//       assertEquals(response.status(), Status.OK);
-//     });
+// Deno.test("Test Plugin", async (t) => {
+//   const handler = await createHandler(manifest);
+
+//   await t.step("#1 GET /", async () => {
+//     const resp = await handler(new Request("http://127.0.0.1/"), CONN_INFO);
+
+//     assertEquals(resp.status, 200);
 //   });
 // });
 
