@@ -12,7 +12,7 @@ export async function iconSetPlugin(
 ): Promise<Plugin> {
   await useIconSetComponents(config);
 
-  const iconSetSheet = establishIconSetSheet(config.Sprites!);
+  const iconSetSheet = establishIconSetSheet(config.IconSet!);
 
   return {
     name: "fathym_atomic_icons",

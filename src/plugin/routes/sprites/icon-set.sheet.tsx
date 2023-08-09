@@ -2,10 +2,10 @@ import { JSX } from "preact";
 import { IconSet, IconSetConfig } from "../../../sprites/IconSet.tsx";
 import { Handlers, PageProps, render } from "../../../src.deps.ts";
 
-export function establishIconSetSheet(sprites: IconSetConfig) {
+export function establishIconSetSheet(iconSet: IconSetConfig) {
   const handler: Handlers<JSX.Element, Record<string, unknown>> = {
     async GET(_req, ctx) {
-      const map = new IconSet(sprites);
+      const map = new IconSet(iconSet);
 
       const spriteSheet = await map.ToSheet();
 

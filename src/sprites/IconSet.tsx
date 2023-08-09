@@ -39,26 +39,84 @@ export async function useFileIconSet(
 export async function useIconSetComponents(
   config: IconSetGenerateConfig,
 ): Promise<void> {
-  const outDir = `${config.OutputDirectory || "./build"}/iconset`;
+  const options = {
+    get ExportsPath() {
+      return `${this.IconsDir}/_exports.ts`;
+    },
+    OutDir: `${config.OutputDirectory || "./build"}/iconset`,
+    get IconsDir() {
+      return `${this.OutDir}/icons`;
+    },
+    IconDeps:
+      `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
+    get IconDepsPath() {
+      return `${this.OutDir}/icon.deps.ts`;
+    },
+    IconFile(iconName: string, icon: string): string {
+      return `import { Icon, IconProps } from "../icon.deps.ts"
 
-  const iconsDir = `${outDir}/icons`;
+export function ${iconName}(props: IconProps) {
+  return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
+}
+`;
+    },
+    IconFilePath(iconTsx: string): string {
+      return `${this.IconsDir}/${iconTsx}`;
+    },
 
-  await Deno.mkdir(iconsDir, {
+    async EnsureFile(path: string, newContent: string): Promise<void> {
+      const pathExists = await exists(path);
+
+      const curText = pathExists && await Deno.readTextFile(path);
+
+      if (curText != newContent) {
+        console.log("Creating Icon Dependencies");
+
+        await Deno.writeTextFile(path, newContent);
+      }
+    },
+    async EnsureExports(exports: string[]) {
+      await this.EnsureFile(this.ExportsPath, exports.join("\n"));
+    },
+    async EnsureIconDeps() {
+      await this.EnsureFile(this.IconDepsPath, this.IconDeps);
+    },
+  };
+
+  await Deno.mkdir(options.IconsDir, {
     recursive: true,
   });
 
-  const iconDepsPath = join(outDir, "icon.deps.ts");
-  const iconDeps =
-    `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`;
+  await options.EnsureIconDeps();
 
-  if (
-    !(await exists(iconDepsPath)) ||
-    ((await Deno.readTextFile(iconDepsPath)) != iconDeps)
-  ) {
-    console.log("Creating Icon Dependencies");
+  let curIcons: string[] = [];
 
-    await Deno.writeTextFile(iconDepsPath, iconDeps);
+  for await (const icon of await Deno.readDir(options.IconsDir)) {
+    if (icon.isFile && icon.name != "_exports.ts") {
+      curIcons.push(icon.name);
+    }
   }
+
+  const iconExports: string[] = [];
+
+  await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
+    const iconName = `${pascalCase(icon)}Icon`;
+
+    curIcons = curIcons.filter((ci) => !ci.startsWith(iconName));
+
+    const iconTsx = `${iconName}.tsx`;
+
+    iconExports.push(`export * from "./icons/${iconTsx}"`);
+
+    await options.EnsureFile(
+      options.IconFilePath(iconTsx),
+      options.IconFile(iconName, icon),
+    );
+  });
+
+  await curIcons.forEach(async (icon) => {
+    await Deno.remove(join(options.IconsDir, icon));
+  });
 
   const denoCfgPath = "./deno.json";
 
@@ -72,65 +130,17 @@ export async function useIconSetComponents(
     denoCfg.imports = {};
   }
 
-  let curIcons: string[] = [];
-
-  for await (const icon of await Deno.readDir(iconsDir)) {
-    if (icon.isFile && icon.name != "_exports") {
-      curIcons.push(icon.name);
-    }
-  }
-
-  const iconExports: string[] = [];
-
-  await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
-    const iconName = `${pascalCase(icon)}Icon`;
-
-    curIcons = curIcons.filter((ci) => ci != iconName);
-
-    const iconTsx = `${iconName}.tsx`;
-
-    iconExports.push(`export * from "./icons/${iconTsx}"`);
-
-    const iconFilePath = join(iconsDir, iconTsx);
-
-    const iconFile = `import { Icon, IconProps } from "../icon.deps.ts"
-
-export function ${iconName}(props: IconProps) {
-  return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
-}
-`;
-
-    if (
-      !(await exists(iconFilePath)) ||
-      ((await Deno.readTextFile(iconFilePath)) != iconFile)
-    ) {
-      await Deno.writeTextFile(iconFilePath, iconFile);
-    }
-  });
-
-  await curIcons.forEach(async (icon) => {
-    await Deno.remove(join(iconsDir, icon));
-  });
-
   if (!denoCfg.imports[importPath]) {
-    denoCfg.imports[importPath] = `${iconsDir}/_exports.ts`;
+    denoCfg.imports[importPath] = `${options.IconsDir}/_exports.ts`;
 
     await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
   }
 
-  const exportTextsPath = join(iconsDir, "_exports.ts");
-  const exportsText = iconExports.join("\n");
-
-  if (
-    !(await exists(exportTextsPath)) ||
-    ((await Deno.readTextFile(exportTextsPath)) != exportsText)
-  ) {
-    await Deno.writeTextFile(exportTextsPath, exportsText);
-  }
+  options.EnsureExports(iconExports);
 }
 
 export interface IconSetConfig {
-  SVGMap: Record<string, string | URL>;
+  IconMap: Record<string, string | URL>;
 }
 
 export interface IconSetGenerateConfig {
@@ -138,7 +148,7 @@ export interface IconSetGenerateConfig {
 
   OutputDirectory?: string;
 
-  Sprites: IconSetConfig;
+  IconSet: IconSetConfig;
 
   SpriteSheet: string;
 }
@@ -162,9 +172,9 @@ export class IconSet {
   }
 
   public async ToSheet(): Promise<JSX.Element> {
-    const map = Object.keys(this.config.SVGMap).map(
+    const map = Object.keys(this.config.IconMap).map(
       (key) => {
-        return { key, url: this.config.SVGMap[key] };
+        return { key, url: this.config.IconMap[key] };
       },
     );
 
