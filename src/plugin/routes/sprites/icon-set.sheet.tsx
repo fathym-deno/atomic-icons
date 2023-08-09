@@ -14,7 +14,9 @@ export function establishIconSetSheet(sprites: SpriteMapConfig) {
       console.log(svg);
 
       // return ctx.render(spriteSheet);
-      return new Response(svg);
+      return new Response(svg, {
+        headers: { "Content-Type": "image/svg+xml" },
+      });
     },
   };
 
