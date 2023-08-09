@@ -9,7 +9,7 @@ import { establishIconSetSheet } from "./routes/sprites/icon-set.sheet.tsx";
 
 export function iconSetPlugin(
   config: IconSetGenerateConfig,
-): Promise<Plugin> {
+): Plugin {
   // await useIconSetComponents(config);
 
   const iconSetSheet = establishIconSetSheet(config.Sprites!);
