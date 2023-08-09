@@ -50,7 +50,7 @@ export async function useIconSetComponents(
     `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`;
 
   if (
-    await exists(iconDepsPath) &&
+    !(await exists(iconDepsPath)) ||
     (await Deno.readTextFile(iconDepsPath) != iconDeps)
   ) {
     await Deno.writeTextFile(iconDepsPath, iconDeps);
@@ -93,7 +93,7 @@ export function ${iconName}(props: IconProps) {
 `;
 
     if (
-      await exists(iconFilePath) &&
+      !(await exists(iconFilePath)) ||
       (await Deno.readTextFile(iconFilePath) != iconFile)
     ) {
       await Deno.writeTextFile(iconFilePath, iconFile);
@@ -104,7 +104,7 @@ export function ${iconName}(props: IconProps) {
   const exportsText = iconExports.join("\n");
 
   if (
-    await exists(exportTextsPath) &&
+    !(await exists(exportTextsPath)) ||
     (await Deno.readTextFile(exportTextsPath) != exportsText)
   ) {
     await Deno.writeTextFile(exportTextsPath, exportsText);
