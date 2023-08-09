@@ -1,6 +1,6 @@
 import { JSX } from "preact";
 import { SpriteMap, SpriteMapConfig } from "../../../sprites/SpriteMap.tsx";
-import { Handlers, PageProps } from "../../../src.deps.ts";
+import { Handlers, PageProps, render } from "../../../src.deps.ts";
 
 export function establishIconSetSheet(sprites: SpriteMapConfig) {
   const handler: Handlers<JSX.Element, Record<string, unknown>> = {
@@ -9,9 +9,12 @@ export function establishIconSetSheet(sprites: SpriteMapConfig) {
 
       const spriteSheet = await map.ToSheet();
 
-      console.log("<><><><><><><><><><><><><><><><><><><><><>");
+      const svg = render(spriteSheet);
 
-      return ctx.render(spriteSheet);
+      console.log(svg);
+
+      // return ctx.render(spriteSheet);
+      return new Response(svg);
     },
   };
 
