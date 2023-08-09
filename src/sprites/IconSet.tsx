@@ -39,9 +39,11 @@ export async function useFileIconSet(
 export async function useIconSetComponents(
   config: IconSetGenerateConfig,
 ): Promise<void> {
-  const outDir = `${config.OutputDirectory || "./build"}/icons`;
+  const outDir = `${config.OutputDirectory || "./build"}/iconset`;
 
-  await exists(outDir) && Deno.remove(outDir, {
+  const iconsDir = join(outDir, "icons");
+
+  await exists(iconsDir) && Deno.remove(iconsDir, {
     recursive: true,
   });
 
@@ -83,13 +85,13 @@ export async function useIconSetComponents(
   await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
     const iconName = `${pascalCase(icon)}Icon`;
 
-    const iconTsx = `./${iconName}.tsx`;
+    const iconTsx = `${iconName}.tsx`;
 
-    iconExports.push(`export * from "${iconTsx}"`);
+    iconExports.push(`export * from "./icons/${iconTsx}"`);
 
-    const iconFilePath = join(outDir, iconTsx);
+    const iconFilePath = join(iconsDir, iconTsx);
 
-    const iconFile = `import { Icon, IconProps } from "./icon.deps.ts"
+    const iconFile = `import { Icon, IconProps } from "../icon.deps.ts"
 
 export function ${iconName}(props: IconProps) {
   return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
