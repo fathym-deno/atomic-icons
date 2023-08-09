@@ -87,7 +87,7 @@ const SVGMap: Record<string, string | URL> = {
   exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
 };
 
-const spriteConfig: SpriteMapConfig = { SVGMap };
+const spriteConfig: IconSetConfig = { SVGMap };
 
 await useFileSheet('./static/icons.sprite.svg', spriteConfig);
 ```
@@ -163,7 +163,7 @@ const SVGMap: Record<string, string | URL> = {
   exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
 };
 
-const spriteConfig: SpriteMapConfig = { SVGMap };
+const spriteConfig: IconSetConfig = { SVGMap };
 
 await useFileSheet('./static/icons.sprite.svg', spriteConfig);
 

@@ -1,6 +1,6 @@
 import { MiddlewareHandlerContext } from "../../src.deps.ts";
 
-export function spriteMapMiddleware() {
+export function IconSetMiddleware() {
   return async (_req: Request, ctx: MiddlewareHandlerContext) => {
     {
       if (ctx.destination == "route") {

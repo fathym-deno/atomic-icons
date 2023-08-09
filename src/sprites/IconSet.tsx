@@ -10,34 +10,34 @@ import {
   xml2js,
 } from "../src.deps.ts";
 
-export async function useSheet(
-  config: SpriteMapConfig,
+export async function useIconSet(
+  config: IconSetConfig,
   action: (sheet: JSX.Element) => Promise<void>,
 ): Promise<void> {
-  const map = new SpriteMap(config);
+  const map = new IconSet(config);
 
   const spriteSheet = await map.ToSheet();
 
   await action(spriteSheet);
 }
 
-export async function useFileSheet(
+export async function useFileIconSet(
   outputPath: string,
-  config: SpriteMapConfig,
+  config: IconSetConfig,
 ): Promise<void> {
-  await useSheet(config, async (sheet) => {
+  await useIconSet(config, async (iconSet) => {
     const dir = dirname(outputPath);
 
     await Deno.mkdir(dir, {
       recursive: true,
     });
 
-    await Deno.writeTextFile(outputPath, render(sheet));
+    await Deno.writeTextFile(outputPath, render(iconSet));
   });
 }
 
-export async function useSheetComponents(
-  config: SpriteMapGenerateConfig,
+export async function useIconSetComponents(
+  config: IconSetGenerateConfig,
 ): Promise<void> {
   const outDir = `${config.OutputDirectory || "./build"}/icons`;
 
@@ -65,12 +65,12 @@ export async function useSheetComponents(
   if (!denoCfg.imports[importPath]) {
     denoCfg.imports[importPath] = `${outDir}/_exports.ts`;
 
-    // await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
   }
 
   const iconExports: string[] = [];
 
-  Object.keys(config.Sprites.SVGMap).forEach((icon) => {
+  await Object.keys(config.Sprites.SVGMap).forEach(async (icon) => {
     const iconName = `${pascalCase(icon)}Icon`;
 
     const iconTsx = `./${iconName}.tsx`;
@@ -86,39 +86,39 @@ export function ${iconName}(props: IconProps) {
 }
 `;
 
-    // await Deno.writeTextFile(iconFilePath, iconFile);
+    await Deno.writeTextFile(iconFilePath, iconFile);
   });
 
-  // await Deno.writeTextFile(
-  //   join(outDir, "_exports.ts"),
-  //   iconExports.join("\n"),
-  // );
+  await Deno.writeTextFile(
+    join(outDir, "_exports.ts"),
+    iconExports.join("\n"),
+  );
 }
 
-export interface SpriteMapConfig {
+export interface IconSetConfig {
   SVGMap: Record<string, string | URL>;
 }
 
-export interface SpriteMapGenerateConfig {
+export interface IconSetGenerateConfig {
   Exports?: string;
 
   OutputDirectory?: string;
 
-  Sprites: SpriteMapConfig;
+  Sprites: IconSetConfig;
 
   SpriteSheet: string;
 }
 
-export class SpriteMap {
+export class IconSet {
   //# Fields
-  protected config: SpriteMapConfig;
+  protected config: IconSetConfig;
   //#
 
   //# Properties
   //#
 
   //# Constructors
-  constructor(config: SpriteMapConfig) {
+  constructor(config: IconSetConfig) {
     this.config = config;
   }
   //#
