@@ -134,7 +134,11 @@ again we may want to extend this further to provide specific components for use
 with each icon. In this way, we can use type safe components like:
 
 ```jsx
-import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$atomic/mycons";
+import {
+  CheckCircleIcon,
+  ExclaimIcon,
+  XCircleIcon,
+} from "$fathym/atomic-icons";
 
 export default function Page() {
   return (
@@ -184,7 +188,11 @@ Make sure you add `build/` to your `.gitignore` file. Then, as mentioned above,
 you can now use your custom icon components with ease:
 
 ```jsx
-import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$atomic/mycons";
+import {
+  CheckCircleIcon,
+  ExclaimIcon,
+  XCircleIcon,
+} from "$fathym/atomic-icons";
 
 export default function Page() {
   return (
