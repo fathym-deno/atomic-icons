@@ -40,6 +40,7 @@ export async function useIconSetComponents(
   config: IconSetGenerateConfig,
 ): Promise<void> {
   const options = {
+    DenoConfigPath: "./deno.json",
     get ExportsPath() {
       return `${this.IconsDir}/_exports.ts`;
     },
@@ -79,6 +80,24 @@ export function ${iconName}(props: IconProps) {
     async EnsureIconDeps() {
       await this.EnsureFile(this.IconDepsPath, this.IconDeps);
     },
+    async WithDenoConfig(
+      action: (cfg: Record<string, any>) => boolean,
+    ): Promise<void> {
+      const cfg = JSON.parse(
+        await exists(this.DenoConfigPath)
+          ? await Deno.readTextFile(this.DenoConfigPath)
+          : "",
+      );
+
+      const shouldWrite = action(cfg);
+
+      if (shouldWrite) {
+        await Deno.writeTextFile(
+          this.DenoConfigPath,
+          JSON.stringify(cfg, null, 2),
+        );
+      }
+    },
   };
 
   await Deno.mkdir(options.IconsDir, {
@@ -116,22 +135,22 @@ export function ${iconName}(props: IconProps) {
   //   await Deno.remove(join(options.IconsDir, icon));
   // });
 
-  const denoCfgPath = "./deno.json";
+  const importPath = config.Imports || `$fathym/atomic-icons`;
 
-  const denoCfg = JSON.parse(
-    await exists(denoCfgPath) ? await Deno.readTextFile(denoCfgPath) : "",
-  );
+  if (config.Exports) {
+    await options.WithDenoConfig((denoCfg) => {
+      if (!denoCfg.imports) {
+        denoCfg.imports = {};
+      }
 
-  const importPath = `$atomic/${config.Exports || "mycons"}`;
+      if (!denoCfg.imports[importPath]) {
+        denoCfg.imports[importPath] = `${options.IconsDir}/_exports.ts`;
 
-  if (!denoCfg.imports) {
-    denoCfg.imports = {};
-  }
+        return true;
+      }
 
-  if (!denoCfg.imports[importPath]) {
-    denoCfg.imports[importPath] = `${options.IconsDir}/_exports.ts`;
-
-    await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
+      return false;
+    });
   }
 
   options.EnsureExports(iconExports);
@@ -142,7 +161,9 @@ export interface IconSetConfig {
 }
 
 export interface IconSetGenerateConfig {
-  Exports?: string;
+  Exports?: boolean;
+
+  Imports?: string;
 
   OutputDirectory?: string;
 
