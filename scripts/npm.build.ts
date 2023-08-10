@@ -3,15 +3,15 @@ import { build, emptyDir } from "./scripts.deps.ts";
 await emptyDir("./build");
 
 await build({
-  entryPoints: ["mod.ts"],
+  entryPoints: ["./mod.ts"],
   outDir: "./build",
   shims: {
     deno: true,
   },
   package: {
-    name: "@fathym-deno/atomic-icons",
+    name: "@fathym/atomic-icons",
     version: Deno.args[0],
-    description: "ES6 based module project.",
+    description: "A lightweight, simple to use icon library for sprite sheets.",
     license: "MIT",
   },
   postBuild() {
