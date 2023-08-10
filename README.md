@@ -201,13 +201,9 @@ export default function Page() {
 
 ### Automatic Configuration with Fresh
 
-Before we dive into the individual pieces of the solution, let's jump ahead and
-look at what the simplest setup and configuration would be. Fathym Atomic Icons
-is delivered as a plugin, as well as a series of utilities that can be used to
-integrate in a custom fashion.
-
-The first thing that we will need to do is setup our
-`fathym-atomic-icons.config.ts` file.
+Fathym Atomic Icons is also delivered as a plugin, built on top of the utilities
+that can be used to integrate in other custom fashion. The first thing that we
+will need to do is setup our `fathym-atomic-icons.config.ts` file.
 
 ```ts ./fathym-atomic-icons.config.ts
 import { IconSetConfig, IconSetGenerateConfig } from '$atomic/icons';
