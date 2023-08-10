@@ -23,6 +23,112 @@ For example, instead of using the Icones id `material-symbols-check-circle`, we
 like to use something like `close`. This makes it simple from an atomic usage
 perspective, as anywhere a close icon is needed, we use this icon.
 
+### Automatic Configuration with Fresh
+
+Fathym Atomic Icons is delivered as a plugin for [Deno](https://fresh.deno.dev)
+Fresh, built on top of the utilities we will detail out further down.
+
+To get running, the first thing that we will need to do is setup our
+`fathym-atomic-icons.config.ts` file.
+
+```ts ./fathym-atomic-icons.config.ts
+import { IconSetConfig, IconSetGenerateConfig } from '$atomic/icons';
+
+export const curIconSetConfig: IconSetConfig = {
+  IconMap: {
+    'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
+    'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
+  },
+};
+
+export const curIconSetGenerateConfig: IconSetGenerateConfig = {
+  IconSet: curIconSetConfig,
+  SpriteSheet: './iconset/icons',
+};
+```
+
+Now we need to register our plugin in the `main.ts` file:
+
+```ts ./main.ts
+import { curIconSetGenerateConfig } from './fathym-atomic-icons.config.ts';
+
+await start(manifest, {
+  plugins: [await iconSetPlugin(curIconSetGenerateConfig)],
+});
+```
+
+Two things will happen when this plugin is configured:
+
+1. Anytime that the icon set configurations are updated, new explicit icon
+   components will be generated.
+2. A new route will be configured that will render the most up to date sprite
+   sheet for the icon set.
+
+Alternatively you can supply only the `curIconSetConfig` to disable the
+automatic component generation, keeping only the sprite generation.
+
+```ts ./main.ts
+import { curIconSetConfig } from './fathym-atomic-icons.config.ts';
+
+await start(manifest, {
+  plugins: [await iconSetPlugin(curIconSetConfig)],
+});
+```
+
+That's it, you can now use your in a number of various ways, taking note that
+the sprite sheet is available on the path specified in config `/iconset/icons`.
+
+```jsx
+import {
+  CheckCircleIcon,
+  ExclaimIcon,
+  Icon,
+  XCircleIcon,
+} from "$fathym/atomic-icons";
+
+export default function Page() {
+  const iconSheet = `./iconset/icons`;
+
+  const icons = ["check-circle", "exclaim"];
+
+  return (
+    <>
+      <Icon src="./iconset/icons" icon="x-circle" />
+
+      {icons.map((icon) => (
+        <Icon
+          src={iconSheet}
+          icon={icon}
+          class="text-blue-500 w-[50px] h-[50px]"
+        />
+      ))}
+
+      <XCircleIcon />
+
+      <CheckCircleIcon class="text-purple-500 w-[50px] h-[50px]" />
+
+      <ExclaimIcon class="text-purple-500 w-[24px] h-[24px]" />
+    </>
+  );
+}
+```
+
+## Icon Sources
+
+Any SVG can be shifted into a sprite sheet, the following provide a nice place
+to find the icons you want to use in your organizations customized icon set.
+
+### Icônes(https://icones.js.org/collection/all)
+
+### Simple Icons (https://simpleicons.org/)
+
+### Simple Icons (https://flowbite.com/icons)
+
+## Custom Workflows
+
+Following we will look at the individual parts that make up the whole, allowing
+you to customize your workflow.
+
 ### Manual Sprite Setup
 
 If you have an existing SVG sprite sheet, you can use it by placing it in the
@@ -206,61 +312,6 @@ export default function Page() {
   );
 }
 ```
-
-### Automatic Configuration with Fresh
-
-Fathym Atomic Icons is also delivered as a plugin, built on top of the utilities
-that can be used to integrate in other custom fashion. The first thing that we
-will need to do is setup our `fathym-atomic-icons.config.ts` file.
-
-```ts ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from '$atomic/icons';
-
-export const curIconSetConfig: IconSetConfig = {
-  IconMap: {
-    'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
-    'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
-  },
-};
-
-export const curIconSetGenerateConfig: IconSetGenerateConfig = {
-  IconSet: curIconSetConfig,
-  SpriteSheet: './iconset/icons',
-};
-```
-
-Now we need to register our plugin in the `main.ts` file:
-
-```ts ./main.ts
-import { curIconSetGenerateConfig } from './fathym-atomic-icons.config.ts';
-
-await start(manifest, {
-  plugins: [await iconSetPlugin(curIconSetGenerateConfig)],
-});
-```
-
-Two things will happen when this plugin is configured:
-
-1. Anytime that the icon set configurations are updated, new explicit icon
-   components will be generated.
-2. A new route will be configured that will render the most up to date sprite
-   sheet for the icon set.
-
-That's it, you can now use your icons just like before, taking note that the
-sprite sheet is available on the path specified in config (`/iconset/icons`)
-
-## Icon Sources
-
-Any SVG can be shifted into a sprite sheet, the following provide a nice place
-to find the icons you want to use in your organizations customized icon set.
-
-### Icônes(https://icones.js.org/collection/all)
-
-#### Manual Addition
-
-#### Configured Addition
-
-### Simple Icons (https://simpleicons.org/)
 
 ## Thank You's
 

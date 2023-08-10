@@ -114,7 +114,7 @@ export function ${iconName}(props: IconProps) {
     }
   }
 
-  const iconExports: string[] = [];
+  const iconExports: string[] = ['export * from "../icon.deps.ts"'];
 
   await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
     const iconName = `${pascalCase(icon)}Icon`;
