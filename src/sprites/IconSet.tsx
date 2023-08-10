@@ -1,195 +1,22 @@
 // deno-lint-ignore-file no-explicit-any
-import {
-  dirname,
-  exists,
-  join,
-  js2xml,
-  JSX,
-  pascalCase,
-  render,
-  xml2js,
-} from "../src.deps.ts";
-
-export async function useIconSet(
-  config: IconSetConfig,
-  action: (sheet: JSX.Element) => Promise<void>,
-): Promise<void> {
-  const map = new IconSet(config);
-
-  const spriteSheet = await map.ToSheet();
-
-  await action(spriteSheet);
-}
-
-export async function useFileIconSet(
-  outputPath: string,
-  config: IconSetConfig,
-): Promise<void> {
-  await useIconSet(config, async (iconSet) => {
-    const dir = dirname(outputPath);
-
-    await Deno.mkdir(dir, {
-      recursive: true,
-    });
-
-    await Deno.writeTextFile(outputPath, render(iconSet));
-  });
-}
-
-export async function useIconSetComponents(
-  config: IconSetGenerateConfig,
-): Promise<void> {
-  const options = {
-    DenoConfigPath: "./deno.json",
-    get ExportsPath() {
-      return `${this.IconsDir}/_exports.ts`;
-    },
-    OutDir: `${config.OutputDirectory || "./build"}/iconset`,
-    get IconsDir() {
-      return `${this.OutDir}/icons`;
-    },
-    IconDeps:
-      `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
-    get IconDepsPath() {
-      return `${this.OutDir}/icon.deps.ts`;
-    },
-    IconFile(iconName: string, icon: string): string {
-      return `import { Icon, IconProps } from "../icon.deps.ts"
-
-export function ${iconName}(props: IconProps) {
-  return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
-}
-`;
-    },
-    IconFilePath(iconTsx: string): string {
-      return `${this.IconsDir}/${iconTsx}`;
-    },
-
-    async EnsureFile(path: string, newContent: string): Promise<void> {
-      const pathExists = await exists(path);
-
-      const curText = pathExists && await Deno.readTextFile(path);
-
-      if (curText != newContent) {
-        await Deno.writeTextFile(path, newContent);
-      }
-    },
-    async EnsureExports(exports: string[]) {
-      await this.EnsureFile(this.ExportsPath, exports.join("\n"));
-    },
-    async EnsureIconDeps() {
-      await this.EnsureFile(this.IconDepsPath, this.IconDeps);
-    },
-    async WithDenoConfig(
-      action: (cfg: Record<string, any>) => boolean,
-    ): Promise<void> {
-      const cfg = JSON.parse(
-        await exists(this.DenoConfigPath)
-          ? await Deno.readTextFile(this.DenoConfigPath)
-          : "",
-      );
-
-      const shouldWrite = action(cfg);
-
-      if (shouldWrite) {
-        await Deno.writeTextFile(
-          this.DenoConfigPath,
-          JSON.stringify(cfg, null, 2),
-        );
-      }
-    },
-  };
-
-  await Deno.mkdir(options.IconsDir, {
-    recursive: true,
-  });
-
-  await options.EnsureIconDeps();
-
-  let curIcons: string[] = [];
-
-  for await (const icon of await Deno.readDir(options.IconsDir)) {
-    if (icon.isFile && icon.name != "_exports.ts") {
-      curIcons.push(icon.name);
-    }
-  }
-
-  const iconExports: string[] = ['export * from "../icon.deps.ts"'];
-
-  await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
-    const iconName = `${pascalCase(icon)}Icon`;
-
-    curIcons = curIcons.filter((ci) => !ci.startsWith(iconName));
-
-    const iconTsx = `${iconName}.tsx`;
-
-    iconExports.push(`export * from "./${iconTsx}"`);
-
-    await options.EnsureFile(
-      options.IconFilePath(iconTsx),
-      options.IconFile(iconName, icon),
-    );
-  });
-
-  // await curIcons.forEach(async (icon) => {
-  //   await Deno.remove(join(options.IconsDir, icon));
-  // });
-
-  const importPath = config.Imports || `$fathym/atomic-icons`;
-
-  if (config.Exports) {
-    await options.WithDenoConfig((denoCfg) => {
-      if (!denoCfg.imports) {
-        denoCfg.imports = {};
-      }
-
-      if (!denoCfg.imports[importPath]) {
-        denoCfg.imports[importPath] = `${options.IconsDir}/_exports.ts`;
-
-        return true;
-      }
-
-      return false;
-    });
-  }
-
-  options.EnsureExports(iconExports);
-}
-
-export interface IconSetConfig {
-  IconMap: Record<string, string | URL>;
-}
-
-export interface IconSetGenerateConfig {
-  Exports?: boolean;
-
-  Imports?: string;
-
-  OutputDirectory?: string;
-
-  IconSet: IconSetConfig;
-
-  SpriteSheet: string;
-}
+import { js2xml, JSX, xml2js } from "../src.deps.ts";
+import { IconSetConfig } from "./IconSetConfig.tsx";
 
 export class IconSet {
-  //# Fields
+  //#region Fields
   protected config: IconSetConfig;
-  //#
+  //#endregion
 
-  //# Properties
-  //#
+  //#region Properties
+  //#endregion
 
-  //# Constructors
+  //#region Constructors
   constructor(config: IconSetConfig) {
     this.config = config;
   }
-  //#
+  //#endregion
 
-  //# API Methods
-  public async GenerateComponents(): Promise<void> {
-  }
-
+  //#region API Methods
   public async ToSheet(): Promise<JSX.Element> {
     const map = Object.keys(this.config.IconMap).map(
       (key) => {
@@ -219,9 +46,9 @@ export class IconSet {
 
     return svg;
   }
-  //#
+  //#endregion
 
-  //# Helpers
+  //#region Helpers
   protected async convertSvgToSymbol(
     id: string,
     svgUrl: URL,
@@ -277,5 +104,5 @@ export class IconSet {
       throw e;
     }
   }
-  //#
+  //#endregion
 }

@@ -1,5 +1,6 @@
 import { JSX } from "preact";
-import { IconSet, IconSetConfig } from "../../../sprites/IconSet.tsx";
+import { IconSet } from "../../../sprites/IconSet.tsx";
+import { IconSetConfig } from "../../../sprites/IconSetConfig.tsx";
 import { Handlers, PageProps, render } from "../../../src.deps.ts";
 
 export function establishIconSetSheet(iconSet: IconSetConfig) {

@@ -1,9 +1,7 @@
 import { JSX } from "preact";
-import {
-  IconSetConfig,
-  IconSetGenerateConfig,
-  useIconSetComponents,
-} from "../sprites/IconSet.tsx";
+import { IconSetGenerateConfig } from "../sprites/IconSetGenerateConfig.tsx";
+import { IconSetConfig } from "../sprites/IconSetConfig.tsx";
+import { useIconSetComponents } from "../sprites/useIconSetComponents.tsx";
 import { Plugin } from "../src.deps.ts";
 import { establishIconSetSheet } from "./routes/sprites/icon-set.sheet.tsx";
 
