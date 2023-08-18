@@ -15,6 +15,9 @@ To get started, you can add an import map to your deno configuration.
 },
 ```
 
+> **NOTE:** It is best to use a specific version of the fathym_atomic_icons
+> library in the import map.
+
 ### Naming Icons in an Icon Set
 
 It can be tempting to want to leverage the ids of the icons you pull in from a
