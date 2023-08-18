@@ -48,6 +48,7 @@ export const curIconSetConfig: IconSetConfig = {
 };
 
 export const curIconSetGenerateConfig: IconSetGenerateConfig = {
+  Exports: true,
   IconSet: curIconSetConfig,
   SpriteSheet: './iconset/icons',
 };
