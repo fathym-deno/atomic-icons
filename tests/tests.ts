@@ -1,2 +1,2 @@
 import "./atoms/Icon.tests.tsx";
-import "./sprites/IconSet.tests.tsx";
+import "./iconsets/IconSet.tests.tsx";

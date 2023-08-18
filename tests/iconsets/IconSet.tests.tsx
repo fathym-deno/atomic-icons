@@ -5,12 +5,9 @@ import {
   render,
   ServeHandlerInfo,
 } from "../tests.deps.ts";
-import {
-  IconSet,
-  IconSetConfig,
-  useFileIconSet,
-  useIconSetComponents,
-} from "../../src/sprites/IconSet.tsx";
+import { IconSet } from "../../src/iconsets/IconSet.tsx";
+import { IconSetConfig } from "../../src/iconsets/IconSetConfig.tsx";
+import { useFileIconSet } from "../../src/iconsets/sheet.utils.tsx";
 // import manifest from "../../fresh.gen.ts";
 
 // const CONN_INFO: ServeHandlerInfo = {
