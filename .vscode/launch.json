@@ -5,15 +5,16 @@
       "request": "launch",
       "name": "Launch Program",
       "type": "node",
-      "program": "${workspaceFolder}/tests/tests.ts",
+      // "program": "${workspaceFolder}/www/dev.ts",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "C:\\ProgramData\\chocolatey\\lib\\deno\\deno.EXE",
       "runtimeArgs": [
-        "test",
+        "run",
         "--config",
-        "./deno.json",
+        "./www/deno.json",
         "--inspect-wait",
-        "--allow-all"
+        "--allow-all",
+        "./www/dev.ts"
       ],
       "attachSimplePort": 9229
     }

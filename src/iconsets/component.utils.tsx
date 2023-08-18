@@ -1,28 +1,26 @@
 import { exists, pascalCase } from "../src.deps.ts";
 import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
 
-export async function useIconSetComponents(
-  config: IconSetGenerateConfig,
-): Promise<void> {
-  const options = {
+export function buildIconSetOptions(config: IconSetGenerateConfig) {
+  return {
     DenoConfigPath: "./deno.json",
     get ExportsPath() {
       return `${this.IconsDir}/_exports.ts`;
     },
-    OutDir: `${config.OutputDirectory || "./build"}/iconset`,
+    OutDir: `${config.OutputDirectory || "./build/iconset"}`,
     get IconsDir() {
       return `${this.OutDir}/icons`;
     },
     IconDeps:
       `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
     get IconDepsPath() {
-      return `${this.OutDir}/icon.deps.ts`;
+      return `${this.IconsDir}/icon.deps.ts`;
     },
     IconFile(iconName: string, icon: string): string {
-      return `import { Icon, IconProps } from "../icon.deps.ts"
+      return `import { Icon, IconProps } from "./icon.deps.ts"
 
 export function ${iconName}(props: IconProps) {
-  return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
+return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
 }
 `;
     },
@@ -65,6 +63,12 @@ export function ${iconName}(props: IconProps) {
       }
     },
   };
+}
+
+export async function useIconSetComponents(
+  config: IconSetGenerateConfig,
+): Promise<void> {
+  const options = buildIconSetOptions(config);
 
   await Deno.mkdir(options.IconsDir, {
     recursive: true,
@@ -80,7 +84,7 @@ export function ${iconName}(props: IconProps) {
     }
   }
 
-  const iconExports: string[] = ['export * from "../icon.deps.ts"'];
+  const iconExports: string[] = ['export * from "./icon.deps.ts"'];
 
   await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
     const iconName = `${pascalCase(icon)}Icon`;

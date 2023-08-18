@@ -11,7 +11,11 @@ export type {
 export { js2xml } from "https://deno.land/x/js2xml@1.0.4/mod.ts";
 export { xml2js } from "https://deno.land/x/xml2js@1.0.0/mod.ts";
 export { render } from "https://esm.sh/preact-render-to-string@6.2.0";
-export { dirname, join } from "https://deno.land/std@0.197.0/path/mod.ts";
+export {
+  dirname,
+  join,
+  resolve,
+} from "https://deno.land/std@0.197.0/path/mod.ts";
 export { paramCase, pascalCase } from "https://deno.land/x/case@2.1.1/mod.ts";
 export { exists } from "https://deno.land/x/fathym_common@v0.0.35/mod.ts";
 export { optimize as optimizeSvg } from "npm:svgo";
