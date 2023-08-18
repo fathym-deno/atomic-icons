@@ -3,7 +3,7 @@ import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.tsx";
 import { IconSetConfig } from "../iconsets/IconSetConfig.tsx";
 import { useIconSetComponents } from "../iconsets/component.utils.tsx";
 import { Plugin } from "../src.deps.ts";
-import { establishIconSetSheet } from "./routes/iconsets/icon-set.sheet.tsx";
+import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx";
 
 export async function iconSetPlugin(
   config: IconSetGenerateConfig | IconSetConfig,
@@ -20,14 +20,14 @@ export async function iconSetPlugin(
     await useIconSetComponents(genCfg);
   }
 
-  const iconSetSheet = establishIconSetSheet(genCfg.IconSet!);
+  const iconSetSheetRoute = establishIconSetSheetRoute(genCfg.IconSet!);
 
   return {
-    name: "fathym_atomic_icons",
+    name: "fathym_atomic_icons_sprite_sheet",
     routes: [
       {
         path: `/${genCfg.SpriteSheet}`,
-        ...iconSetSheet,
+        ...iconSetSheetRoute,
       },
     ],
   };
