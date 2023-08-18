@@ -36,7 +36,7 @@ To get running, the first thing that we will need to do is setup our
 `fathym-atomic-icons.config.ts` file.
 
 ```ts ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from '$fathym/atomic-icons';
+import { IconSetConfig, IconSetGenerateConfig } from '@fathym/atomic-icons';
 
 export const curIconSetConfig: IconSetConfig = {
   IconMap: {
@@ -56,6 +56,7 @@ Now we need to register our plugin in the `main.ts` file:
 
 ```ts ./main.ts
 import { curIconSetGenerateConfig } from './fathym-atomic-icons.config.ts';
+import { iconSetPlugin } from '@fathym/atomic-icons';
 
 await start(manifest, {
   plugins: [await iconSetPlugin(curIconSetGenerateConfig)],

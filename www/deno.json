@@ -14,7 +14,7 @@
   },
   "imports": {
     "@fathym/atomic": "https://deno.land/x/fathym_open_biotech_atomic@v0.0.6-integration270/mod.ts",
-    "@fathym/atomic-icons": "https://deno.land/x/fathym_atomic_icons@v0.0.3-integration1/mod.ts",
+    "@fathym/atomic-icons": "https://deno.land/x/fathym_atomic_icons@v0.0.3-integration8/mod.ts",
     "$fresh/": "https://deno.land/x/fresh@1.3.1/",
     "preact": "https://esm.sh/preact@10.15.1",
     "preact/": "https://esm.sh/preact@10.15.1/",
