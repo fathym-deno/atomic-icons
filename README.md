@@ -10,7 +10,7 @@ To get started, you can add an import map to your deno configuration.
 ```ts
 "imports": {
   ...
-  "$atomic/icons": "https://deno.land/x/fathym_atomic_icons/mod.ts",
+  "@fathym/atomic-icons": "https://deno.land/x/fathym_atomic_icons/mod.ts",
   ...
 },
 ```
@@ -25,19 +25,21 @@ perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Automatic Configuration with Fresh
 
-Fathym Atomic Icons is delivered as a plugin for [Deno](https://fresh.deno.dev)
-Fresh, built on top of the utilities we will detail out further down.
+Fathym Atomic Icons can be delivered as a plugin for
+[Deno](https://fresh.deno.dev) Fresh, built on top of the utilities we will
+detail out further down this doc.
 
 To get running, the first thing that we will need to do is setup our
 `fathym-atomic-icons.config.ts` file.
 
 ```ts ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from '$atomic/icons';
+import { IconSetConfig, IconSetGenerateConfig } from '$fathym/atomic-icons';
 
 export const curIconSetConfig: IconSetConfig = {
   IconMap: {
     'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
     'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
+    exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
   },
 };
 
@@ -75,8 +77,9 @@ await start(manifest, {
 });
 ```
 
-That's it, you can now use your in a number of various ways, taking note that
-the sprite sheet is available on the path specified in config `/iconset/icons`.
+That's it, you can now use your Icons in a number of various ways, taking note
+that the sprite sheet is available on the path specified in config
+`/iconset/icons`.
 
 ```jsx
 import {
@@ -115,8 +118,9 @@ export default function Page() {
 
 ## Icon Sources
 
-Any SVG can be shifted into a sprite sheet, the following provide a nice place
-to find the icons you want to use in your organizations customized icon set.
+Any SVG can be shifted into a sprite sheet, the following sites provide a nice
+place to find the icons you want to use in your organizations customized icon
+set.
 
 ### Icônes(https://icones.js.org/collection/all)
 
@@ -152,7 +156,7 @@ With our sprite sheet in hand and references added, we can now use the basic
 `<Icon />` control. You'll need to import the Icon and then use it in your JSX
 
 ```JSX
-import { Icon } from "$atomic/icons";
+import { Icon } from "@fathym/atomic-icons";
 
 export default function Page() {
   return (
@@ -180,22 +184,14 @@ feel:
 
 Manually copying SVG and Symbol content into our sprite sheet is not really the
 way we want to manage change. Instead, we can leverage some tooling from this
-library. To start, let's create a new `icons.atomic.ts` file in the scripts
-directory.
+library. To start, let's make sure we have a `fathym-atomic-icons.config.ts`
+file at the root of our project. Then, in the scripts directory,
 
 ```ts ./scripts/icons.atomic.ts
-import { useFileSheet } from '$atomic/icons';
+import { curIconSetConfig } from '../fathym-atomic-icons.config.ts';
+import { useFileIconSet } from '@fathym/atomic-icons';
 
-const SVGMap: Record<string, string | URL> = {
-  'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
-  'check-circle':
-    'https://api.iconify.design/material-symbols:check-circle.svg',
-  exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
-};
-
-const spriteConfig: IconSetConfig = { SVGMap };
-
-await useFileSheet('./static/icons.sprite.svg', spriteConfig);
+await useFileIconSet('./static/icons.sprite.svg', curIconSetConfig);
 ```
 
 Then let's add a new task to our `deno.json` file:
@@ -214,11 +210,11 @@ And now we can easily generate our sprite sheet after updating the SVG maps:
 deno task icons
 ```
 
-This will generate an SVG at the file path given in `useFileSheet`. Now we can
+This will generate an SVG at the file path given in `useFileIconSet`. Now we can
 use the icons just as before:
 
 ```JSX
-import { Icon } from "$atomic/icons";
+import { Icon } from "@fathym/atomic-icons";
 
 export default function Page() {
   return (
@@ -259,28 +255,17 @@ export default function Page() {
 }
 ```
 
-To achieve this, we will again need to invoke some helpers. Let's head back into
+To achieve this, we will again need to invoke some tooling. Let's head back into
 the `./scripts/icons.atomic.ts` file and we can configure the generation of our
 icons. We can go ahead and add the generation call here:
 
 ```ts ./scripts/icons.atomic.ts
-import { useFileSheet, useSheetComponents } from '$atomic/icons';
+import { curIconSetGenerateConfig } from '../fathym-atomic-icons.config.ts';
+import { useFileIconSet, useIconSetComponents } from '@fathym/atomic-icons';
 
-const SVGMap: Record<string, string | URL> = {
-  'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
-  'check-circle':
-    'https://api.iconify.design/material-symbols:check-circle.svg',
-  exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
-};
+await useFileIconSet('./static/icons.sprite.svg', curIconSetGenerateConfig.IconSet);
 
-const spriteConfig: IconSetConfig = { SVGMap };
-
-await useFileSheet('./static/icons.sprite.svg', spriteConfig);
-
-await useSheetComponents('./static/icons.sprite.svg', { 
-  Sprites: spriteConfig,
-  SpriteSheet: './icons.sprite.svg',
-});
+await useIconSetComponents(curIconSetGenerateConfig);
 ```
 
 And again we can run our task to not only generate the sprite sheet, but also
