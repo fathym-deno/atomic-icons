@@ -1,4 +1,4 @@
-import { dirname, JSX, render } from "../src.deps.ts";
+import { dirname, JSX, optimizeSvg, render } from "../src.deps.ts";
 import { IconSet } from "./IconSet.tsx";
 import { IconSetConfig } from "./IconSetConfig.tsx";
 
@@ -24,6 +24,14 @@ export async function useFileIconSet(
       recursive: true,
     });
 
-    await Deno.writeTextFile(outputPath, render(iconSet));
+    let svg = render(iconSet);
+
+    if (config.Optimize) {
+      const optimizeResult = optimizeSvg(svg);
+
+      svg = optimizeResult.data;
+    }
+
+    await Deno.writeTextFile(outputPath, svg);
   });
 }

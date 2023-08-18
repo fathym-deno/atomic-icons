@@ -44,6 +44,7 @@ export const curIconSetConfig: IconSetConfig = {
     'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
     exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
   },
+  Optimize: true
 };
 
 export const curIconSetGenerateConfig: IconSetGenerateConfig = {
@@ -51,6 +52,10 @@ export const curIconSetGenerateConfig: IconSetGenerateConfig = {
   SpriteSheet: './iconset/icons',
 };
 ```
+
+Notice the use of the `Optimize: true` configuration, this will ensure that SVGO
+is used to optimize the sprite sheet that is created. To disable sprite sheet
+optimization, set the value to `false`.
 
 Now we need to register our plugin in the `main.ts` file:
 
