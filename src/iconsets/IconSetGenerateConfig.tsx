@@ -1,7 +1,7 @@
 import { IconSetConfig } from "./IconSetConfig.tsx";
 
 export interface IconSetGenerateConfig {
-  ComponentLibrary: string;
+  ComponentLibrary?: string;
 
   Exports?: boolean;
 
