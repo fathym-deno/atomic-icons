@@ -13,7 +13,7 @@
     }
   },
   "imports": {
-    "@fathym/atomic": "https://deno.land/x/fathym_atomic@v0.0.37-integration/mod.ts",
+    "@fathym/atomic": "https://deno.land/x/fathym_atomic@v0.0.59-integration/mod.ts",
     "@fathym/atomic-icons": "../mod.ts",
     "$fresh/": "https://deno.land/x/fresh@1.3.1/",
     "preact": "https://esm.sh/preact@10.16.0",

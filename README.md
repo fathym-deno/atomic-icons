@@ -58,14 +58,20 @@ Notice the use of the `Optimize: true` configuration, this will ensure that SVGO
 is used to optimize the sprite sheet that is created. To disable sprite sheet
 optimization, set the value to `false`.
 
-Now we need to register our plugin in the `main.ts` file:
+Now we need to register our plugin in the `fresh.config.ts` file:
 
-```ts ./main.ts
-import { curIconSetGenerateConfig } from './fathym-atomic-icons.config.ts';
-import { iconSetPlugin } from '@fathym/atomic-icons';
+```ts ./fresh.config.ts
+...
+import { curIconSetGenerateConfig } from "./fathym-atomic-icons.config.ts";
+import { iconSetPlugin } from "@fathym/atomic-icons";
+...
 
-await start(manifest, {
-  plugins: [await iconSetPlugin(curIconSetGenerateConfig)],
+export default defineConfig({
+  plugins: [
+    ...
+    await iconSetPlugin(curIconSetGenerateConfig),
+    ...
+  ],
 });
 ```
 
