@@ -85,11 +85,18 @@ Two things will happen when this plugin is configured:
 Alternatively you can supply only the `curIconSetConfig` to disable the
 automatic component generation, keeping only the sprite generation.
 
-```ts ./main.ts
+```ts ./fresh.config.ts
+...
 import { curIconSetConfig } from './fathym-atomic-icons.config.ts';
+import { iconSetPlugin } from "@fathym/atomic-icons";
+...
 
-await start(manifest, {
-  plugins: [await iconSetPlugin(curIconSetConfig)],
+export default defineConfig({
+  plugins: [
+    ...
+    await iconSetPlugin(curIconSetConfig),
+    ...
+  ],
 });
 ```
 
