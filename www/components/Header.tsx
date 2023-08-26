@@ -7,9 +7,15 @@ import {
   HeaderProps,
   ResponsiveSet,
 } from "@fathym/atomic";
+import { getSessionId } from "@kv_oauth";
 import InteractiveResponsiveSet from "../islands/molecules/InteractiveResponsiveSet.tsx";
+import ProfileMenu from "../islands/ProfileMenu.tsx";
 
-export default function WWWHeader(props: HeaderProps) {
+export default async function WWWHeader(req: Request, props: HeaderProps) {
+  const sessionId = await getSessionId(req);
+
+  const isSignedIn = sessionId !== undefined;
+
   const logo = {
     LogoAlt: "Fathym Icon Sets",
     LogoUrl: "/logo.svg",
@@ -34,6 +40,25 @@ export default function WWWHeader(props: HeaderProps) {
             Pricing
           </Action>
 
+          {isSignedIn
+            ? (
+              <Action
+                id="sign-in-button"
+                href="/oauth/signout"
+                class="text-xl mx-1"
+              >
+                Sign Out
+              </Action>
+            )
+            : (
+              <Action
+                id="sign-in-button"
+                href="/oauth/signin/github"
+                class="text-xl mx-1"
+              >
+                Sign In
+              </Action>
+            )}
           {/* <ProfileMenu /> */}
         </InteractiveResponsiveSet>
       }

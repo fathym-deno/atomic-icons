@@ -8,7 +8,7 @@ export default function Home() {
       </Head>
 
       <h1 class="text-4xl font-bold">Welcome to fresh</h1>
-      <p class="my-4 [&>*]:(bg-primary-500)">
+      <p class="my-4 [&>*]:(bg-blue-500)">
         Try updating this message in the
         <code class="mx-2">./routes/index.tsx</code> file, and refresh.
       </p>
