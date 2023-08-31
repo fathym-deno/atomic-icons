@@ -1,0 +1,7 @@
+#$max 14000
+#import ./.gitignore
+
+.git/
+package-lock.json
+
+.(png|svg|jpeg|jpg|gif|tiff|psd|pdf|mov|mp4|avi|wmv)
