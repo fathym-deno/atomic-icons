@@ -58,7 +58,8 @@ Notice the use of the `Optimize: true` configuration, this will ensure that SVGO
 is used to optimize the sprite sheet that is created. To disable sprite sheet
 optimization, set the value to `false`.
 
-Now we need to register our plugin in the `fresh.config.ts` file:
+Now we need to register our plugin in the `fresh.config.ts` file, adding the
+`iconSetPlugin` to any existing config:
 
 ```ts ./fresh.config.ts
 ...
