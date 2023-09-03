@@ -28,6 +28,13 @@ perspective, as anywhere a close icon is needed, we use this icon.
 
 ### Automatic Configuration with Fresh
 
+This initial configuration with Fresh can be completed by changing only the
+following files:
+
+- `./deno.json`
+- `./fathym-atomic-icons.config.ts`
+- `./fresh.config.ts`
+
 Fathym Atomic Icons can be delivered as a plugin for
 [Deno](https://fresh.deno.dev) Fresh, built on top of the utilities we will
 detail out further down this doc.
