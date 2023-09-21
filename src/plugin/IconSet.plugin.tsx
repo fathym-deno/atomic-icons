@@ -32,7 +32,7 @@ export async function iconSetPlugin(
     name: "fathym_atomic_icons",
     routes: [
       {
-        path: `/${genCfg.SpriteSheet || "./iconset/icons"}`,
+        path: `/${genCfg.SpriteSheet || "iconset/icons"}`,
         ...iconSetSheetRoute,
       },
       {

@@ -20,7 +20,7 @@ export function buildIconSetOptions(config: IconSetGenerateConfig) {
       return `import { Icon, IconProps } from "./icon.deps.ts"
 
 export function ${iconName}(props: IconProps) {
-return <Icon {...props} src="${config.SpriteSheet}" icon="${icon}" />;
+return <Icon {...props} src="/${config.SpriteSheet}" icon="${icon}" />;
 }
 `;
     },
