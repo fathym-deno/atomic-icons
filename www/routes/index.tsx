@@ -1,4 +1,5 @@
 import { Head } from "$fresh/runtime.ts";
+import Simple from "../islands/Simple.tsx";
 
 export default function Home() {
   return (
@@ -19,6 +20,8 @@ export default function Home() {
         height="128"
         alt="the fresh logo: a sliced lemon dripping with juice"
       />
+
+      <Simple />
     </>
   );
 }

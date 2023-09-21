@@ -4,3 +4,6 @@ build/
 coverage/
 lcov/
 target/
+
+# Fresh build directory
+_fresh/

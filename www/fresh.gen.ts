@@ -7,7 +7,8 @@ import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/dashboard/index.tsx";
 import * as $3 from "./routes/index.tsx";
 import * as $$0 from "./islands/ProfileMenu.tsx";
-import * as $$1 from "./islands/molecules/InteractiveResponsiveSet.tsx";
+import * as $$1 from "./islands/Simple.tsx";
+import * as $$2 from "./islands/molecules/InteractiveResponsiveSet.tsx";
 
 const manifest = {
   routes: {
@@ -18,7 +19,8 @@ const manifest = {
   },
   islands: {
     "./islands/ProfileMenu.tsx": $$0,
-    "./islands/molecules/InteractiveResponsiveSet.tsx": $$1,
+    "./islands/Simple.tsx": $$1,
+    "./islands/molecules/InteractiveResponsiveSet.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };

@@ -43,21 +43,22 @@ To get running, the first thing that we will need to do is setup our
 `fathym-atomic-icons.config.ts` file.
 
 ```ts ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from '@fathym/atomic-icons';
+import { IconSetConfig, IconSetGenerateConfig } from "@fathym/atomic-icons";
 
 export const curIconSetConfig: IconSetConfig = {
   IconMap: {
-    'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
-    'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
-    exclaim: 'https://api.iconify.design/bi:exclamation-circle.svg',
+    "x-circle": "https://api.iconify.design/bi:x-circle.svg",
+    "check-circle":
+      "https://api.iconify.design/material-symbols:check-circle.svg",
+    exclaim: "https://api.iconify.design/bi:exclamation-circle.svg",
   },
-  Optimize: true
+  Optimize: true,
 };
 
 export const curIconSetGenerateConfig: IconSetGenerateConfig = {
   Exports: true,
   IconSet: curIconSetConfig,
-  SpriteSheet: 'iconset/icons',
+  SpriteSheet: "iconset/icons",
 };
 ```
 
@@ -219,10 +220,10 @@ library. To start, let's make sure we have a `fathym-atomic-icons.config.ts`
 file at the root of our project. Then, in the scripts directory,
 
 ```ts ./scripts/icons.atomic.ts
-import { curIconSetConfig } from '../fathym-atomic-icons.config.ts';
-import { useFileIconSet } from '@fathym/atomic-icons';
+import { curIconSetConfig } from "../fathym-atomic-icons.config.ts";
+import { useFileIconSet } from "@fathym/atomic-icons";
 
-await useFileIconSet('./static/icons.sprite.svg', curIconSetConfig);
+await useFileIconSet("./static/icons.sprite.svg", curIconSetConfig);
 ```
 
 Then let's add a new task to our `deno.json` file:
@@ -291,10 +292,13 @@ the `./scripts/icons.atomic.ts` file and we can configure the generation of our
 icons. We can go ahead and add the generation call here:
 
 ```ts ./scripts/icons.atomic.ts
-import { curIconSetGenerateConfig } from '../fathym-atomic-icons.config.ts';
-import { useFileIconSet, useIconSetComponents } from '@fathym/atomic-icons';
+import { curIconSetGenerateConfig } from "../fathym-atomic-icons.config.ts";
+import { useFileIconSet, useIconSetComponents } from "@fathym/atomic-icons";
 
-await useFileIconSet('./static/icons.sprite.svg', curIconSetGenerateConfig.IconSet);
+await useFileIconSet(
+  "./static/icons.sprite.svg",
+  curIconSetGenerateConfig.IconSet,
+);
 
 await useIconSetComponents(curIconSetGenerateConfig);
 ```

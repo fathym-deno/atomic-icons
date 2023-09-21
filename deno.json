@@ -6,13 +6,16 @@
     "deploy": "deno task build && ftm git",
     "npm:build": "deno run -A scripts/npm.build.ts",
     "npm:publish": "npm publish ./build --access public",
-    "test": "deno test -A ./tests/tests.ts --coverage=cov"
+    "test": "deno test -A ./tests/tests.ts --coverage=cov",
+    "preview": "deno run -A main.ts"
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.4.2/",
+    "$fresh/": "https://deno.land/x/fresh@1.4.3/",
     "preact": "https://esm.sh/preact@10.16.0",
     "preact/": "https://esm.sh/preact@10.16.0/",
-    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.0"
+    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.1",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.1.3",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.2.3"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
@@ -24,7 +27,10 @@
       "include": [],
       "exclude": []
     },
-    "options": {}
+    "options": {},
+    "exclude": [
+      "_fresh"
+    ]
   },
   "lint": {
     "files": {
@@ -33,7 +39,14 @@
     },
     "rules": {
       "include": [],
-      "exclude": []
-    }
+      "exclude": [],
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
+    },
+    "exclude": [
+      "_fresh"
+    ]
   }
 }
