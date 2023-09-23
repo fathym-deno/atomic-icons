@@ -1,5 +1,6 @@
 import { useSignal } from "@preact/signals";
 import Counter from "../islands/Counter.tsx";
+import { ExclaimIcon, XCircleIcon } from "$fathym/atomic-icons";
 
 export default function Home() {
   const count = useSignal(3);
@@ -18,7 +19,9 @@ export default function Home() {
           Try updating this message in the
           <code class="mx-2">./routes/index.tsx</code> file, and refresh.
         </p>
-        <Counter count={count} />
+        <Counter count={count} minusIcon={<XCircleIcon />} />
+
+        <ExclaimIcon />
       </div>
     </div>
   );
