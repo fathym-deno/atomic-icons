@@ -1,33 +1,16 @@
 import { AppProps } from "$fresh/server.ts";
-import { getSessionId } from "@kv_oauth";
 
-export default async function App(req: Request, { Component }: AppProps) {
-  const sessionId = await getSessionId(req);
-
-  const isSignedIn = sessionId !== undefined;
-
+export default function App({ Component }: AppProps) {
   return (
-    <>
-      {isSignedIn
-        ? (
-          <a
-            id="sign-in-button"
-            href="/oauth/signout"
-            class="text-xl mx-1"
-          >
-            Sign Out
-          </a>
-        )
-        : (
-          <a
-            id="sign-in-button"
-            href="/oauth/signin/github"
-            class="text-xl mx-1"
-          >
-            Sign In
-          </a>
-        )}
-      <Component />
-    </>
+    <html>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>www</title>
+      </head>
+      <body>
+        <Component />
+      </body>
+    </html>
   );
 }
