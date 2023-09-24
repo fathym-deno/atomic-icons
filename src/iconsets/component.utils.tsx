@@ -11,7 +11,8 @@ export function buildIconSetOptions(config: IconSetGenerateConfig) {
     get IconsDir() {
       return `${this.OutDir}/icons`;
     },
-    IconDeps: `export { Icon, type IconProps } from "@fathym/atomic-icons";`,
+    IconDeps:
+      `export { Icon, type IconProps } from "@fathym/atomic-icons/browser";`,
     get IconDepsPath() {
       return `${this.IconsDir}/icon.deps.ts`;
     },

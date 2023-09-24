@@ -37,6 +37,7 @@
     "twind-preset-tailwind": "https://esm.sh/@twind/preset-tailwind@1.1.4",
     "$fresh/plugins/twind.ts": "https://deno.land/x/fresh_twindv1_plugin@v1.3.0/twind.ts",
     "@fathym/atomic-icons": "../mod.ts",
+    "@fathym/atomic-icons/browser": "../browser.ts",
     "$fathym/atomic-icons": "./build/iconset/icons/_exports.ts"
   },
   "compilerOptions": {

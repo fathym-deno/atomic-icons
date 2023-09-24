@@ -11,6 +11,7 @@ To get started, you can add an import map to your deno configuration.
 "imports": {
   ...
   "@fathym/atomic-icons": "https://deno.land/x/fathym_atomic_icons/mod.ts",
+  "@fathym/atomic-icons/browser": "https://deno.land/x/fathym_atomic_icons/browser.ts",
   ...
 },
 ```
