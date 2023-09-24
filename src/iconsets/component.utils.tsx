@@ -11,8 +11,7 @@ export function buildIconSetOptions(config: IconSetGenerateConfig) {
     get IconsDir() {
       return `${this.OutDir}/icons`;
     },
-    IconDeps:
-      `export { Icon, type IconProps } from "https://deno.land/x/fathym_atomic_icons/mod.ts"`,
+    IconDeps: `export { Icon, type IconProps } from "@fathym/atomic-icons";`,
     get IconDepsPath() {
       return `${this.IconsDir}/icon.deps.ts`;
     },
