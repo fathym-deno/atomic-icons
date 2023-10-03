@@ -1,9 +1,9 @@
-import { exists, pascalCase } from "../src.deps.ts";
+import { exists, existsSync, pascalCase } from "../src.deps.ts";
 import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
 
 export function buildIconSetOptions(config: IconSetGenerateConfig) {
   return {
-    DenoConfigPath: "./deno.json",
+    DenoConfigPaths: ["./deno.json", "./deno.jsonc"],
     get ExportsPath() {
       return `${this.IconsDir}/_exports.ts`;
     },
@@ -47,18 +47,20 @@ export function ${iconName}(props: IconProps) {
       // deno-lint-ignore no-explicit-any
       action: (cfg: Record<string, any>) => boolean,
     ): Promise<void> {
-      const cfg = JSON.parse(
-        await exists(this.DenoConfigPath)
-          ? await Deno.readTextFile(this.DenoConfigPath)
-          : "",
-      );
+      const denoCfgPath = this.DenoConfigPaths.find((path) =>
+        existsSync(path)
+      )!;
 
-      const shouldWrite = action(cfg);
+      const denoCfgStr = (await Deno.readTextFile(denoCfgPath)) || "{}";
+
+      const denoCfg = JSON.parse(denoCfgStr);
+
+      const shouldWrite = action(denoCfg);
 
       if (shouldWrite) {
         await Deno.writeTextFile(
-          this.DenoConfigPath,
-          JSON.stringify(cfg, null, 2),
+          denoCfgPath,
+          JSON.stringify(denoCfg, null, 2),
         );
       }
     },

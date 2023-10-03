@@ -16,5 +16,8 @@ export {
   resolve,
 } from "https://deno.land/std@0.198.0/path/mod.ts";
 export { paramCase, pascalCase } from "https://deno.land/x/case@2.1.1/mod.ts";
-export { exists } from "https://deno.land/x/fathym_common@v0.0.35/mod.ts";
+export {
+  exists,
+  existsSync,
+} from "https://deno.land/x/fathym_common@v0.0.96-integration/mod.ts";
 export { optimize as optimizeSvg } from "npm:svgo";

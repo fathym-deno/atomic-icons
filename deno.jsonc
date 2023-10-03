@@ -23,20 +23,14 @@
   },
   "lock": false,
   "fmt": {
-    "files": {
-      "include": [],
-      "exclude": []
-    },
+    "include": ["./**/*.ts", "./**/*.tsx"],
     "options": {},
     "exclude": [
       "_fresh"
     ]
   },
   "lint": {
-    "files": {
-      "include": [],
-      "exclude": []
-    },
+    "include": ["./**/*.ts", "./**/*.tsx"],
     "rules": {
       "include": [],
       "exclude": [],

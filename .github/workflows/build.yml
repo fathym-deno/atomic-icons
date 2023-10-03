@@ -39,9 +39,9 @@ jobs:
         run: echo 'format=${{ env.MainFormat }}-${{ steps.vars.outputs.currentBranch }}${increment}' >> $GITHUB_OUTPUT\
 
       - name: Deno Setup
-        uses: denoland/setup-deno@v1.1.0
+        uses: denoland/setup-deno@v1
         with:
-          deno-version: v1.x.x
+          deno-version: vx.x.x
 
       - name: Deno Build
         run: deno task build
