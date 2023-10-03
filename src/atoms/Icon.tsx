@@ -1,4 +1,4 @@
-import { JSX } from "../browser.deps.ts";
+import { JSX } from "../src.deps.ts";
 
 export type IconProps = JSX.SVGAttributes<SVGSVGElement>;
 

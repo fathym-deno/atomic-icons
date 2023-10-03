@@ -1,7 +1,6 @@
-import { JSX } from "preact";
+import { Handlers, JSX, render } from "../../../src.deps.ts";
 import { IconSet } from "../../../iconsets/IconSet.tsx";
 import { IconSetConfig } from "../../../iconsets/IconSetConfig.tsx";
-import { Handlers, PageProps, render } from "../../../src.deps.ts";
 
 export function establishIconSetSheetRoute(iconSet: IconSetConfig) {
   const handler: Handlers<JSX.Element, Record<string, unknown>> = {

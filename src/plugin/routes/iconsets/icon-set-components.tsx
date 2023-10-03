@@ -1,7 +1,5 @@
-import { JSX } from "preact";
-import { IconSet } from "../../../iconsets/IconSet.tsx";
+import { Handlers, JSX, resolve } from "../../../src.deps.ts";
 import { IconSetGenerateConfig } from "../../../iconsets/IconSetGenerateConfig.tsx";
-import { Handlers, PageProps, render, resolve } from "../../../src.deps.ts";
 import { buildIconSetOptions } from "../../../iconsets/component.utils.tsx";
 
 export function establishIconSetComponentLibraryRoute(

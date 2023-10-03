@@ -1,1 +1,1 @@
-export * from "../deps.ts";
+export { type JSX } from "../deps.ts";

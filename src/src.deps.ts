@@ -1,4 +1,4 @@
-export * from "../deps.ts";
+export { type JSX } from "../deps.ts";
 export { asset } from "https://deno.land/x/fresh@1.3.1/runtime.ts";
 export type {
   Handlers,
