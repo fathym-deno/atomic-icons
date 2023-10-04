@@ -9,7 +9,7 @@ export type {
 } from "$fresh/server.ts";
 export { js2xml } from "https://deno.land/x/js2xml@1.0.4/mod.ts";
 export { xml2js } from "https://deno.land/x/xml2js@1.0.0/mod.ts";
-export { render } from "https://esm.sh/preact-render-to-string@6.2.0";
+export { render } from "preact-render-to-string";
 export {
   dirname,
   join,
