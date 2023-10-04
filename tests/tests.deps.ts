@@ -1,8 +1,5 @@
 export * from "../deps.ts";
-export {
-  createHandler,
-  type ServeHandlerInfo,
-} from "https://deno.land/x/fresh@1.3.1/server.ts";
+export { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
 export {
   assert,
   assertEquals,
