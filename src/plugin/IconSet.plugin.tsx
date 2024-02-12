@@ -17,7 +17,9 @@ export async function iconSetPlugin(
   } else {
     genCfg = config as IconSetGenerateConfig;
 
-    await useIconSetComponents(genCfg);
+    if (genCfg.Generate) {
+      await useIconSetComponents(genCfg);
+    }
   }
 
   const iconSetSheetRoute = establishIconSetSheetRoute(genCfg.IconSet!);

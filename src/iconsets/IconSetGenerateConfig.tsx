@@ -5,6 +5,8 @@ export interface IconSetGenerateConfig {
 
   Exports?: boolean;
 
+  Generate: boolean;
+
   Imports?: string;
 
   OutputDirectory?: string;
