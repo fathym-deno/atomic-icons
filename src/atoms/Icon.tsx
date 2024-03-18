@@ -9,7 +9,9 @@ export function Icon(props: IconProps) {
     ? props.src.toString()
     : undefined;
 
-  const icon = iconUrl ? <use href={iconUrl} /> : props.children;
+  const icon = iconUrl
+    ? <use href={iconUrl} data-eac-bypass-base />
+    : props.children;
 
   return (
     <svg {...props} src={undefined} icon={undefined}>

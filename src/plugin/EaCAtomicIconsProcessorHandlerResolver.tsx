@@ -37,7 +37,10 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
         genCfg = processor.Config as IconSetGenerateConfig;
 
         if (genCfg.Generate) {
-          await useIconSetComponents(genCfg);
+          await useIconSetComponents(
+            genCfg,
+            appProcCfg.ResolverConfig.PathPattern.replace("*", ""),
+          );
         }
       }
 

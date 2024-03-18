@@ -16,11 +16,11 @@ export function buildIconSetOptions(config: IconSetGenerateConfig) {
     get IconDepsPath() {
       return `${this.IconsDir}/icon.deps.ts`;
     },
-    IconFile(iconName: string, icon: string): string {
+    IconFile(root: string, iconName: string, icon: string): string {
       return `import { Icon, IconProps } from "./icon.deps.ts"
 
 export function ${iconName}(props: IconProps) {
-  return <Icon {...props} src="/${config.SpriteSheet}" icon="${icon}" />;
+  return <Icon {...props} src="${root}${config.SpriteSheet}" icon="${icon}" />;
 }
 `;
     },
@@ -69,6 +69,7 @@ export function ${iconName}(props: IconProps) {
 
 export async function useIconSetComponents(
   config: IconSetGenerateConfig,
+  root: string,
 ): Promise<void> {
   const options = buildIconSetOptions(config);
 
@@ -99,7 +100,7 @@ export async function useIconSetComponents(
 
     await options.EnsureFile(
       options.IconFilePath(iconTsx),
-      options.IconFile(iconName, icon),
+      options.IconFile(root, iconName, icon),
     );
   });
 

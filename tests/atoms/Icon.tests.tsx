@@ -7,7 +7,7 @@ describe("Icon Tests", () => {
 
     assertEquals(
       html,
-      `<svg><use href="./sprite.svg#deno"></use></svg>`,
+      `<svg><use href="./sprite.svg#deno" data-eac-bypass-base="true"></use></svg>`,
     );
   });
 
@@ -16,7 +16,7 @@ describe("Icon Tests", () => {
 
     assertEquals(
       html,
-      `<svg><use href="./logo.svg"></use></svg>`,
+      `<svg><use href="./logo.svg" data-eac-bypass-base="true"></use></svg>`,
     );
   });
 
