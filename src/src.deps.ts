@@ -12,13 +12,13 @@ export {
 export {
   type EaCProcessor,
   isEaCProcessor,
-} from "https://deno.land/x/fathym_everything_as_code@v0.0.384/mod.ts";
+} from "https://deno.land/x/fathym_everything_as_code@v0.0.389/mod.ts";
 export {
   type EaCRuntimeConfig,
   type EaCRuntimeHandler,
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
-} from "../../eac-runtime/mod.ts";
-// } from 'https://deno.land/x/fathym_eac_runtime@v0.0.210/mod.ts';
+} from "https://deno.land/x/fathym_eac_runtime@v0.0.211-integration/mod.ts";
+// } from "../../eac-runtime/mod.ts";
 export { optimize as optimizeSvg } from "npm:svgo";
