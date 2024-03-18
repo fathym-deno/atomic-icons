@@ -1,5 +1,4 @@
 import { JSX } from "../browser.deps.ts";
-import { asset } from "$fresh/runtime.ts";
 
 export type IconProps = JSX.SVGAttributes<SVGSVGElement>;
 
@@ -10,8 +9,7 @@ export function Icon(props: IconProps) {
     ? props.src.toString()
     : undefined;
 
-  // const icon = iconUrl ? <use href={iconUrl} /> : props.children;
-  const icon = iconUrl ? <use href={asset(iconUrl)} /> : props.children;
+  const icon = iconUrl ? <use href={iconUrl} /> : props.children;
 
   return (
     <svg {...props} src={undefined} icon={undefined}>

@@ -1,4 +1,4 @@
-import { dirname, JSX, optimizeSvg, render } from "../src.deps.ts";
+import { JSX, optimizeSvg, path, render } from "../src.deps.ts";
 import { IconSet } from "./IconSet.tsx";
 import { IconSetConfig } from "./IconSetConfig.tsx";
 
@@ -18,7 +18,7 @@ export async function useFileIconSet(
   config: IconSetConfig,
 ): Promise<void> {
   await useIconSet(config, async (iconSet) => {
-    const dir = dirname(outputPath);
+    const dir = path.dirname(outputPath);
 
     await Deno.mkdir(dir, {
       recursive: true,

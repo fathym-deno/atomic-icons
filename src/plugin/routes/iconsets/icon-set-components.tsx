@@ -1,29 +1,27 @@
-import { Handlers, JSX, resolve } from "../../../src.deps.ts";
-import { IconSetGenerateConfig } from "../../../iconsets/IconSetGenerateConfig.tsx";
-import { buildIconSetOptions } from "../../../iconsets/component.utils.tsx";
+// import { EaCRuntimeHandler, path, STATUS_CODE } from "../../../src.deps.ts";
+// import { IconSetGenerateConfig } from "../../../iconsets/IconSetGenerateConfig.tsx";
+// import { buildIconSetOptions } from "../../../iconsets/component.utils.tsx";
 
-export function establishIconSetComponentLibraryRoute(
-  genCfg: IconSetGenerateConfig,
-) {
-  const handler: Handlers<JSX.Element, Record<string, unknown>> = {
-    async GET(_req, ctx) {
-      const { path } = ctx.params;
+// export function establishIconSetComponentLibraryRoute(
+//   genCfg: IconSetGenerateConfig,
+// ) {
+//   const options = buildIconSetOptions(genCfg);
 
-      const options = buildIconSetOptions(genCfg);
+//   const filePath = path.resolve(options.IconsDir, reqPath!);
 
-      const filePath = resolve(options.IconsDir, path);
+//   const libraryComponent = await Deno.readTextFile(filePath);
+//   const handler: EaCRuntimeHandler<Record<string, unknown>> = async (_req, ctx) => {
+//     const { path: reqPath } = ctx.Params;
 
-      try {
-        const libraryComponent = await Deno.readTextFile(filePath);
+//       return new Response(libraryComponent, {
+//         headers: { "Content-Type": "application/typescript" },
+//       });
+//     } catch (err) {
+//       return new Response(null, {
+//         status: STATUS_CODE.NotFound,
+//       });
+//     }
+//   };
 
-        return new Response(libraryComponent, {
-          headers: { "Content-Type": "application/typescript" },
-        });
-      } catch (err) {
-        return await ctx.renderNotFound();
-      }
-    },
-  };
-
-  return { handler, component: undefined };
-}
+//   return handler;
+// }

@@ -1,44 +1,23 @@
-import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.tsx";
-import { IconSetConfig } from "../iconsets/IconSetConfig.tsx";
-import { useIconSetComponents } from "../iconsets/component.utils.tsx";
-import { Plugin } from "../src.deps.ts";
-import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx";
-import { establishIconSetComponentLibraryRoute } from "./routes/iconsets/icon-set-components.tsx";
+import {
+  EaCRuntimeConfig,
+  EaCRuntimePlugin,
+  EaCRuntimePluginConfig,
+  IoCContainer,
+} from "../src.deps.ts";
+import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcessorHandlerResolver.tsx";
 
-export async function iconSetPlugin(
-  config: IconSetGenerateConfig | IconSetConfig,
-): Promise<Plugin> {
-  let genCfg: IconSetGenerateConfig;
+export default class FathymAtomicIconsPlugin implements EaCRuntimePlugin {
+  public Build(_config: EaCRuntimeConfig): Promise<EaCRuntimePluginConfig> {
+    const pluginConfig: EaCRuntimePluginConfig = {
+      Name: "FathymEaCPlugin",
+      IoC: new IoCContainer(),
+    };
 
-  if ((config as IconSetConfig).IconMap !== undefined) {
-    genCfg = {
-      IconSet: config,
-    } as IconSetGenerateConfig;
-  } else {
-    genCfg = config as IconSetGenerateConfig;
+    pluginConfig.IoC!.Register(() => EaCAtomicIconsProcessorHandlerResolver, {
+      Name: "EaCAtomicIconsProcessor",
+      Type: pluginConfig.IoC!.Symbol("ProcessorHandlerResolver"),
+    });
 
-    if (genCfg.Generate) {
-      await useIconSetComponents(genCfg);
-    }
+    return Promise.resolve(pluginConfig);
   }
-
-  const iconSetSheetRoute = establishIconSetSheetRoute(genCfg.IconSet!);
-
-  const iconSetComponentLibraryRoute = establishIconSetComponentLibraryRoute(
-    genCfg,
-  );
-
-  return {
-    name: "fathym_atomic_icons",
-    routes: [
-      {
-        path: `/${genCfg.SpriteSheet || "iconset/icons"}`,
-        ...iconSetSheetRoute,
-      },
-      {
-        path: `/${genCfg.ComponentLibrary || "./iconset/library"}/[...path]`,
-        ...iconSetComponentLibraryRoute,
-      },
-    ],
-  };
 }
