@@ -1,4 +1,5 @@
-import { exists, existsSync, pascalCase } from "../src.deps.ts";
+import { exists, existsSync } from "../deno.deps.ts";
+import { pascalCase } from "../src.deps.ts";
 import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
 
 export function buildIconSetOptions(config: IconSetGenerateConfig) {

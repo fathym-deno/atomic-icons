@@ -6,13 +6,9 @@ export * as path from "https://deno.land/std@0.220.1/path/mod.ts";
 export * from "https://deno.land/std@0.220.1/http/status.ts";
 export { paramCase, pascalCase } from "https://deno.land/x/case@2.1.1/mod.ts";
 export {
-  exists,
-  existsSync,
-} from "https://deno.land/x/fathym_common@v0.0.174/mod.ts";
-export {
   type EaCProcessor,
   isEaCProcessor,
-} from "https://deno.land/x/fathym_everything_as_code@v0.0.392/mod.ts";
+} from "https://deno.land/x/fathym_everything_as_code@v0.0.395/mod.ts";
 // export * from "../../eac-runtime/mod.ts";
 export {
   type EaCApplicationProcessorConfig,
@@ -22,5 +18,5 @@ export {
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
-} from "https://deno.land/x/fathym_eac_runtime@v0.0.212/mod.ts";
+} from "https://deno.land/x/fathym_eac_runtime@v0.0.216/mod.ts";
 export { optimize as optimizeSvg } from "npm:svgo";
