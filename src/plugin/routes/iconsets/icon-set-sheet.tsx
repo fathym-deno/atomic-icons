@@ -9,7 +9,7 @@ export async function establishIconSetSheetRoute(iconSet: IconSetConfig) {
 
   const svg = render(spriteSheet);
 
-  const handler: EaCRuntimeHandler<Record<string, unknown>> = (_req, ctx) => {
+  const handler: EaCRuntimeHandler<Record<string, unknown>> = (_req, _ctx) => {
     return new Response(svg, {
       headers: {
         "Content-Type": "image/svg+xml",
