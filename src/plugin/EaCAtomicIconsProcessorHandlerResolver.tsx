@@ -1,4 +1,5 @@
-import { path, ProcessorHandlerResolver } from "../src.deps.ts";
+import { ProcessorHandlerResolver } from "../deno.deps.ts";
+import { path } from "../src.deps.ts";
 import {
   EaCAtomicIconsProcessor,
   isEaCAtomicIconsProcessor,

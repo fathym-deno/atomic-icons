@@ -1,4 +1,5 @@
-import { EaCRuntimeHandler, render } from "../../../src.deps.ts";
+import { EaCRuntimeHandler } from "../../../deno.deps.ts";
+import { render } from "../../../src.deps.ts";
 import { IconSet } from "../../../iconsets/IconSet.tsx";
 import { IconSetConfig } from "../../../iconsets/IconSetConfig.tsx";
 

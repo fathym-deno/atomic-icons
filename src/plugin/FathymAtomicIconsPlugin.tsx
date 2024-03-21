@@ -2,8 +2,8 @@ import {
   EaCRuntimeConfig,
   EaCRuntimePlugin,
   EaCRuntimePluginConfig,
-  IoCContainer,
-} from "../src.deps.ts";
+} from "../deno.deps.ts";
+import { IoCContainer } from "../src.deps.ts";
 import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcessorHandlerResolver.tsx";
 
 export default class FathymAtomicIconsPlugin implements EaCRuntimePlugin {
