@@ -5,7 +5,7 @@ export {
 export {
   type EaCProcessor,
   isEaCProcessor,
-} from "https://deno.land/x/fathym_everything_as_code@v0.0.396/mod.ts";
+} from "https://deno.land/x/fathym_everything_as_code@v0.0.397/mod.ts";
 // export * from "../../eac-runtime/mod.ts";
 export {
   type EaCApplicationProcessorConfig,
@@ -15,4 +15,4 @@ export {
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
-} from "https://deno.land/x/fathym_eac_runtime@v0.0.217/mod.ts";
+} from "https://deno.land/x/fathym_eac_runtime@v0.0.219/mod.ts";
