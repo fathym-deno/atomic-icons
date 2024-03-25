@@ -15,4 +15,4 @@ export {
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
-} from "https://deno.land/x/fathym_eac_runtime@v0.0.220/mod.ts";
+} from "https://deno.land/x/fathym_eac_runtime@v0.0.221/mod.ts";
