@@ -4,7 +4,7 @@ import {
   EaCRuntimePluginConfig,
 } from "../deno.deps.ts";
 import { IoCContainer } from "../src.deps.ts";
-import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcessorHandlerResolver.tsx";
+import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcessorHandlerResolver.ts";
 
 export default class FathymAtomicIconsPlugin implements EaCRuntimePlugin {
   public Build(_config: EaCRuntimeConfig): Promise<EaCRuntimePluginConfig> {

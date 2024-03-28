@@ -1,5 +1,5 @@
-export * from "./DefaultAtomicIconsProcessorHandlerResolver.tsx";
-export * from "./EaCAtomicIconsProcessorHandlerResolver.tsx";
+export * from "./DefaultAtomicIconsProcessorHandlerResolver.ts";
+export * from "./EaCAtomicIconsProcessorHandlerResolver.ts";
 
-import FAIP from "./FathymAtomicIconsPlugin.tsx";
+import FAIP from "./FathymAtomicIconsPlugin.ts";
 export const FathymAtomicIconsPlugin = FAIP;

@@ -12,12 +12,14 @@ import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx
 
 export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
   {
-    async Resolve(ioc, appProcCfg, eac) {
+    async Resolve(_ioc, appProcCfg, _eac) {
       if (!isEaCAtomicIconsProcessor(appProcCfg.Application.Processor)) {
         throw new Deno.errors.NotSupported(
           "The provided processor is not supported for the EaCDFSProcessorHandlerResolver.",
         );
       }
+
+      console.log("Configuring Atomic Icons...");
 
       const processor = appProcCfg.Application
         .Processor as EaCAtomicIconsProcessor;
@@ -25,24 +27,34 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
       let genCfg: IconSetGenerateConfig;
 
       if (typeof processor.Config === "string") {
+        console.log("From Icon Config File");
+
         const configStr = await Deno.readTextFile(
           path.resolve(processor.Config),
         );
 
-        genCfg = JSON.parse(configStr);
-      } else if ((processor.Config as IconSetConfig).IconMap !== undefined) {
+        processor.Config = JSON.parse(configStr);
+      }
+
+      if ((processor.Config as IconSetConfig).IconMap !== undefined) {
+        console.log("From IconSetConfig");
+
         genCfg = {
           IconSet: processor.Config,
         } as IconSetGenerateConfig;
       } else {
-        genCfg = processor.Config as IconSetGenerateConfig;
+        console.log("From IconSetGenerateConfig");
 
-        if (genCfg.Generate) {
-          await useIconSetComponents(
-            genCfg,
-            appProcCfg.ResolverConfig.PathPattern.replace("*", ""),
-          );
-        }
+        genCfg = processor.Config as IconSetGenerateConfig;
+      }
+
+      if (genCfg.Generate) {
+        console.log("Generating components");
+
+        await useIconSetComponents(
+          genCfg,
+          appProcCfg.ResolverConfig.PathPattern.replace("*", ""),
+        );
       }
 
       // const libraryHandler = await establishIconSetComponentLibraryRoute(genCfg);
@@ -50,6 +62,8 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
       const sheetHandler = await establishIconSetSheetRoute(genCfg.IconSet);
 
       return (req, ctx) => {
+        genCfg = genCfg as IconSetGenerateConfig;
+
         if (ctx.Runtime.URLMatch.Path === genCfg.SpriteSheet) {
           return sheetHandler(req, ctx);
           // } else if (ctx.Runtime.URLMatch.Path === genCfg.ComponentLibrary) {
