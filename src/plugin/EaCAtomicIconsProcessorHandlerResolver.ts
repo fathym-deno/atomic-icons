@@ -10,6 +10,7 @@ import { useIconSetComponents } from "../iconsets/component.utils.tsx";
 // import { establishIconSetComponentLibraryRoute } from './routes/iconsets/icon-set-components.tsx';
 import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx";
 
+/** */
 export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
   {
     async Resolve(_ioc, appProcCfg, _eac) {
