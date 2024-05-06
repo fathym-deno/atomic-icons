@@ -7,7 +7,7 @@ import { IoCContainer } from "../src.deps.ts";
 import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcessorHandlerResolver.ts";
 
 export default class FathymAtomicIconsPlugin implements EaCRuntimePlugin {
-  public Build(_config: EaCRuntimeConfig): Promise<EaCRuntimePluginConfig> {
+  public Setup(_config: EaCRuntimeConfig): Promise<EaCRuntimePluginConfig> {
     const pluginConfig: EaCRuntimePluginConfig = {
       Name: "FathymEaCPlugin",
       IoC: new IoCContainer(),
