@@ -1,4 +1,4 @@
-import { assertEquals, describe, render } from "../tests.deps.ts";
+import { assertEquals, render } from "../tests.deps.ts";
 import { IconSet } from "../../src/iconsets/IconSet.tsx";
 import { IconSetConfig } from "../../src/iconsets/IconSetConfig.tsx";
 import { useFileIconSet } from "../../src/iconsets/sheet.utils.tsx";
