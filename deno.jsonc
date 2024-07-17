@@ -32,5 +32,6 @@
     },
     "exclude": ["_fresh"]
   },
-  "unstable": ["kv"]
+  "unstable": ["kv"],
+  "lock": false
 }
