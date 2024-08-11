@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "exports": {
     ".": "./mod.ts",
+    "./browser": "./browser.ts",
     "./plugin": "./plugin.ts"
   },
   "tasks": {

@@ -2,7 +2,7 @@ import { JSX } from "../browser.deps.ts";
 
 export type IconProps = JSX.SVGAttributes<SVGSVGElement>;
 
-export function Icon(props: IconProps) {
+export function Icon(props: IconProps): JSX.Element {
   const iconUrl = props.icon
     ? `${props.src}#${props.icon}`
     : props.src
