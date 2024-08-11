@@ -1,4 +1,4 @@
-import { JSX, optimizeSvg, path, render } from "../src.deps.ts";
+import { JSX, optimizeSvg, path, preactRenderToString } from "../src.deps.ts";
 import { IconSet } from "./IconSet.tsx";
 import { IconSetConfig } from "./IconSetConfig.tsx";
 
@@ -24,7 +24,7 @@ export async function useFileIconSet(
       recursive: true,
     });
 
-    let svg = render(iconSet);
+    let svg = preactRenderToString(iconSet);
 
     if (config.Optimize) {
       const optimizeResult = optimizeSvg(svg);

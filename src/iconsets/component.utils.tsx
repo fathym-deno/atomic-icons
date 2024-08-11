@@ -1,8 +1,26 @@
 import { exists, existsSync } from "../deno.deps.ts";
-import { pascalCase } from "../src.deps.ts";
+import { titleCase } from "../src.deps.ts";
 import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
 
-export function buildIconSetOptions(config: IconSetGenerateConfig) {
+export type IconSetOptions = {
+  DenoConfigPaths: string[];
+  readonly ExportsPath: string;
+  OutDir: string;
+  readonly IconsDir: string;
+  IconDeps: string;
+  readonly IconDepsPath: string;
+  IconFile(root: string, iconName: string, icon: string): string;
+  IconFilePath(iconTsx: string): string;
+  EnsureFile(path: string, newContent: string): Promise<void>;
+  EnsureExports(exports: string[]): Promise<void>;
+  EnsureIconDeps(): Promise<void>;
+  // deno-lint-ignore no-explicit-any
+  WithDenoConfig(action: (cfg: Record<string, any>) => boolean): Promise<void>;
+};
+
+export function buildIconSetOptions(
+  config: IconSetGenerateConfig,
+): IconSetOptions {
   return {
     DenoConfigPaths: ["./deno.json", "./deno.jsonc"],
     get ExportsPath() {
@@ -32,7 +50,7 @@ export function ${iconName}(props: IconProps) {
     async EnsureFile(path: string, newContent: string): Promise<void> {
       const pathExists = await exists(path);
 
-      const curText = pathExists && await Deno.readTextFile(path);
+      const curText = pathExists && (await Deno.readTextFile(path));
 
       if (curText != newContent) {
         await Deno.writeTextFile(path, newContent);
@@ -59,10 +77,7 @@ export function ${iconName}(props: IconProps) {
       const shouldWrite = action(denoCfg);
 
       if (shouldWrite) {
-        await Deno.writeTextFile(
-          denoCfgPath,
-          JSON.stringify(denoCfg, null, 2),
-        );
+        await Deno.writeTextFile(denoCfgPath, JSON.stringify(denoCfg, null, 2));
       }
     },
   };
@@ -91,7 +106,7 @@ export async function useIconSetComponents(
   const iconExports: string[] = ['export * from "./icon.deps.ts"'];
 
   await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
-    const iconName = `${pascalCase(icon)}Icon`;
+    const iconName = `${titleCase(icon)}Icon`;
 
     curIcons = curIcons.filter((ci) => !ci.startsWith(iconName));
 

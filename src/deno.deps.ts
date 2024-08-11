@@ -1,12 +1,8 @@
+export { type EaCProcessor, isEaCProcessor } from "jsr:@fathym/eac@0.0.434";
 export {
   exists,
   existsSync,
-} from "https://deno.land/x/fathym_common@v0.0.177/deno.ts";
-export {
-  type EaCProcessor,
-  isEaCProcessor,
-} from "https://deno.land/x/fathym_everything_as_code@v0.0.415/mod.ts";
-// export * from "../../eac-runtime/mod.ts";
+} from "jsr:@fathym/common@0.0.211/utils/path/exists";
 export {
   type EaCApplicationProcessorConfig,
   type EaCRuntimeConfig,
@@ -15,4 +11,4 @@ export {
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
-} from "https://deno.land/x/fathym_eac_runtime@v0.0.275/mod.ts";
+} from "jsr:@fathym/eac-runtime@0.0.320";

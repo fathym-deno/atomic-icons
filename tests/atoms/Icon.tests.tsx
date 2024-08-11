@@ -1,9 +1,9 @@
-import { assertEquals, describe, render } from "../tests.deps.ts";
+import { assertEquals, preactRenderToString } from "../tests.deps.ts";
 import { Icon } from "../../src/atoms/Icon.tsx";
 
-describe("Icon Tests", () => {
-  describe("Sprite Test", () => {
-    const html = render(<Icon src="./sprite.svg" icon="deno" />);
+Deno.test("Icon Tests", async (t) => {
+  await t.step("Sprite Test", () => {
+    const html = preactRenderToString(<Icon src="./sprite.svg" icon="deno" />);
 
     assertEquals(
       html,
@@ -11,8 +11,8 @@ describe("Icon Tests", () => {
     );
   });
 
-  describe("Source Test", () => {
-    const html = render(<Icon src="./logo.svg" />);
+  await t.step("Source Test", () => {
+    const html = preactRenderToString(<Icon src="./logo.svg" />);
 
     assertEquals(
       html,
@@ -20,8 +20,8 @@ describe("Icon Tests", () => {
     );
   });
 
-  describe("Children Test", () => {
-    const html = render(
+  await t.step("Children Test", () => {
+    const html = preactRenderToString(
       <Icon>
         <circle
           cx="50"
