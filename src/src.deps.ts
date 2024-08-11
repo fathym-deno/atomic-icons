@@ -1,8 +1,12 @@
 export * from "../deps.ts";
-export { js2xml } from "https://deno.land/x/js2xml@1.0.4/mod.ts";
-export { xml2js } from "https://deno.land/x/xml2js@1.0.0/mod.ts";
-export { render } from "https://esm.sh/*preact-render-to-string@6.3.1";
-export * as path from "https://deno.land/std@0.220.1/path/mod.ts";
-export * from "https://deno.land/std@0.220.1/http/status.ts";
-export { paramCase, pascalCase } from "https://deno.land/x/case@2.1.1/mod.ts";
-export { optimize as optimizeSvg } from "npm:svgo";
+export {
+  parse as parseXml,
+  stringify as buildXml,
+  type xml_document,
+  type xml_node,
+} from "jsr:@libs/xml@5.4.13";
+export { render as preactRenderToString } from "npm:preact-render-to-string@6.3.1";
+export * as path from "jsr:@std/path@^1.0.2";
+export * from "jsr:@std/http@1.0.2/status";
+export { kebabCase, titleCase } from "jsr:@luca/cases@1.0.0";
+export { optimize as optimizeSvg } from "npm:svgo@3.3.2";

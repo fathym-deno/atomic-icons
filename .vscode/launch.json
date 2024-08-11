@@ -3,20 +3,19 @@
   "configurations": [
     {
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Test Program",
       "type": "node",
-      // "program": "${workspaceFolder}/www/dev.ts",
+      "program": "${workspaceFolder}/tests/tests.ts",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "C:\\ProgramData\\chocolatey\\lib\\deno\\deno.EXE",
+      "runtimeExecutable": "deno.exe",
       "runtimeArgs": [
-        "run",
+        "test",
+        "-A",
         "--config",
-        "./www/deno.json",
-        "--inspect-wait",
-        "--allow-all",
-        "./www/dev.ts"
+        "./deno.jsonc",
+        "--inspect-wait"
       ],
       "attachSimplePort": 9229
-    }
+    },
   ]
 }

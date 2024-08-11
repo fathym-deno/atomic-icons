@@ -1,4 +1,4 @@
-import { assertEquals, render } from "../tests.deps.ts";
+import { assertEquals, preactRenderToString } from "../tests.deps.ts";
 import { IconSet } from "../../src/iconsets/IconSet.tsx";
 import { IconSetConfig } from "../../src/iconsets/IconSetConfig.tsx";
 import { useFileIconSet } from "../../src/iconsets/sheet.utils.tsx";
@@ -27,7 +27,7 @@ Deno.test("Sprite Map Direct", async () => {
 
   const spriteSheet = await map.ToSheet();
 
-  const spriteSheetContent = render(spriteSheet);
+  const spriteSheetContent = preactRenderToString(spriteSheet);
 
   assertEquals(
     spriteSheetContent,

@@ -1,2 +1,2 @@
-export { type JSX } from "https://esm.sh/preact@10.20.1";
-export * from "https://deno.land/x/fathym_ioc@v0.0.10/mod.ts";
+export { type JSX } from "npm:preact@10.20.1";
+export * from "jsr:@fathym/ioc@0.0.12";

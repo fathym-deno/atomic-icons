@@ -1,6 +1,7 @@
 import {
   EaCApplicationProcessorConfig,
   EaCRuntimeEaC,
+  EaCRuntimeHandler,
   ProcessorHandlerResolver,
 } from "../deno.deps.ts";
 import { IoCContainer } from "../src.deps.ts";
@@ -12,7 +13,7 @@ export class DefaultAtomicIconsProcessorHandlerResolver
     ioc: IoCContainer,
     appProcCfg: EaCApplicationProcessorConfig,
     eac: EaCRuntimeEaC,
-  ) {
+  ): Promise<EaCRuntimeHandler | undefined> {
     let toResolveName: string = "";
 
     if (isEaCAtomicIconsProcessor(appProcCfg.Application.Processor)) {

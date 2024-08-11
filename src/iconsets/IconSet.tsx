@@ -1,5 +1,10 @@
-// deno-lint-ignore-file no-explicit-any
-import { js2xml, JSX, xml2js } from "../src.deps.ts";
+import {
+  buildXml,
+  JSX,
+  parseXml,
+  xml_document,
+  xml_node,
+} from "../src.deps.ts";
 import { IconSetConfig } from "./IconSetConfig.tsx";
 
 export class IconSet {
@@ -18,13 +23,11 @@ export class IconSet {
 
   //#region API Methods
   public async ToSheet(): Promise<JSX.Element> {
-    const map = Object.keys(this.config.IconMap).map(
-      (key) => {
-        return { key, url: this.config.IconMap[key] };
-      },
-    );
+    const map = Object.keys(this.config.IconMap).map((key) => {
+      return { key, url: this.config.IconMap[key] };
+    });
 
-    const symbols = new Array<JSX.Element>();
+    const symbols = new Array<string>();
 
     for (let { key, url } of map) {
       if (typeof url === "string") {
@@ -38,8 +41,11 @@ export class IconSet {
 
     const svg = (
       <svg xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          {symbols}
+        <defs
+          dangerouslySetInnerHTML={{
+            __html: symbols.join(""),
+          }}
+        >
         </defs>
       </svg>
     );
@@ -49,10 +55,7 @@ export class IconSet {
   //#endregion
 
   //#region Helpers
-  protected async convertSvgToSymbol(
-    id: string,
-    svgUrl: URL,
-  ): Promise<JSX.Element> {
+  protected async convertSvgToSymbol(id: string, svgUrl: URL): Promise<string> {
     try {
       const svgResp = await fetch(svgUrl, {
         headers: {
@@ -76,28 +79,37 @@ export class IconSet {
 
       const svgMarkup = await svgResp.text();
 
-      const svgObject = xml2js(svgMarkup, {}) as any;
+      const svgObject = parseXml(svgMarkup, {});
 
-      const svgElement = svgObject.elements[0] as any;
-      // const width = svgElement?.attributes.width || undefined;
-      // const height = svgElement?.attributes.height || undefined;
-      const viewBox = svgElement?.attributes.viewBox || undefined;
-      const content = js2xml(svgElement, {});
+      // const svgElement = (svgObject['~children'][0] as xml_node)[
+      //   '~children'
+      // ][0] as xml_node;
 
-      const props = {
-        id,
-        viewBox,
-        // width,
-        // height,
-        dangerouslySetInnerHTML: { __html: content },
-      };
+      const svgElement = svgObject["~children"][0] as xml_node;
 
-      const svgSym: JSX.Element = (
-        <symbol {...props}>
-        </symbol>
+      const viewBox = svgElement["@viewBox"] || undefined;
+
+      const content = buildXml(
+        {
+          symbol: {
+            "@id": id,
+            "@viewBox": viewBox,
+            ...svgElement["~children"].reduce((acc, c) => {
+              acc[c["~name"]] = c;
+
+              return acc;
+            }, {} as Record<string, unknown>),
+          },
+        } satisfies Partial<xml_document>,
+        {
+          format: {
+            breakline: -1,
+            indent: "",
+          },
+        },
       );
 
-      return svgSym;
+      return content;
     } catch (e) {
       console.log(e);
 

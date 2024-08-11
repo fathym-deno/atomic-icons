@@ -1,13 +1,14 @@
-name: build
+name: Build & Publish
 
 permissions:
   contents: write
+  id-token: write
 
 on: push
 
 env:
   MainBranch: main
-  MainFormat: "${major}.${minor}.${patch}"
+  MainFormat: '${major}.${minor}.${patch}'
 
 jobs:
   build:
@@ -22,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-        
+
       - name: Set variables
         id: vars
         run: |
@@ -50,14 +51,14 @@ jobs:
         id: version
         uses: paulhatch/semantic-version@v5.0.2
         with:
-          tag_prefix: "v"
-          major_pattern: "(MAJOR)"
-          minor_pattern: "(MINOR)"
+          tag_prefix: 'v'
+          major_pattern: '(MAJOR)'
+          minor_pattern: '(MINOR)'
           version_format: ${{ steps.mainFormat.outputs.format || steps.prereleaseFormat.outputs.format }}
           # namespace: ${{ steps.vars.outputs.currentBranch == env.MainBranch && null || steps.vars.outputs.currentBranch }}
           # search_commit_body: false
           bump_each_commit: true
-          user_format_type: "json"
+          user_format_type: 'json'
           enable_prerelease_mode: ${{ steps.vars.outputs.currentBranch != env.MainBranch }}
 
       # - name: NPM Package Build
@@ -73,8 +74,13 @@ jobs:
       #   if: steps.vars.outputs.currentBranch != env.MainBranch
       #   run: deno task npm:publish --tag ${{ steps.vars.outputs.currentBranch }}
 
+      - name: Version package
+        run: deno task version -- "${{ steps.version.outputs.version }}"
+
+      - name: Publish package
+        run: deno publish --allow-dirty
+
       - name: Tag commit ${{ steps.version.outputs.version }}
         run: |
           git tag v${{ steps.version.outputs.version }} ${{ steps.commit.outputs.commit }}
           git push origin v${{ steps.version.outputs.version }}
-          

@@ -15,11 +15,12 @@
     "npm:publish": "npm publish ./build --access public",
     "publish:check": "deno publish --dry-run --allow-dirty",
     "test": "deno test -A ./tests/tests.ts --coverage=cov",
-    "preview": "deno run -A main.ts"
+    "preview": "deno run -A main.ts",
+    "version": "deno run -A jsr:@fathym/common@0.0.211/version"
   },
   "imports": {
-    "preact": "https://esm.sh/preact@10.20.1",
-    "preact/": "https://esm.sh/preact@10.20.1/"
+    "preact": "npm:preact@10.20.1",
+    "preact/jsx-runtime": "npm:preact@10.20.1/jsx-runtime"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

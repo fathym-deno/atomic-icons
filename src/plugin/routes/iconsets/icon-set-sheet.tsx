@@ -1,5 +1,5 @@
 import { EaCRuntimeHandler } from "../../../deno.deps.ts";
-import { render } from "../../../src.deps.ts";
+import { preactRenderToString } from "../../../src.deps.ts";
 import { IconSet } from "../../../iconsets/IconSet.tsx";
 import { IconSetConfig } from "../../../iconsets/IconSetConfig.tsx";
 
@@ -8,7 +8,7 @@ export async function establishIconSetSheetRoute(iconSet: IconSetConfig) {
 
   const spriteSheet = await map.ToSheet();
 
-  const svg = render(spriteSheet);
+  const svg = preactRenderToString(spriteSheet);
 
   const handler: EaCRuntimeHandler<Record<string, unknown>> = (_req, _ctx) => {
     return new Response(svg, {
