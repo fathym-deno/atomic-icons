@@ -1,8 +1,10 @@
+export { exists, existsSync } from "jsr:@fathym/common@0.2.22/path";
+
 export {
   type EaCProcessor,
   isEaCProcessor,
-} from "jsr:@fathym/eac@0/applications";
-export { exists, existsSync } from "jsr:@fathym/common@0/path";
+} from "jsr:@fathym/eac@0.1.18/applications";
+
 export {
   type EaCApplicationProcessorConfig,
   type EaCRuntimeConfig,
@@ -12,4 +14,4 @@ export {
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
   // } from '../../eac-runtime/mod.ts';
-} from "jsr:@fathym/eac-runtime@0";
+} from "jsr:@fathym/eac-runtime@0.1.7";
