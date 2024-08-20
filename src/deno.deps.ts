@@ -11,4 +11,5 @@ export {
   type EaCRuntimePlugin,
   type EaCRuntimePluginConfig,
   type ProcessorHandlerResolver,
+  // } from '../../eac-runtime/mod.ts';
 } from "jsr:@fathym/eac-runtime@0";
