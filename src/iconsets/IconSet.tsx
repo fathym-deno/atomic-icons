@@ -1,5 +1,6 @@
 import {
   buildXml,
+  getPackageLogger,
   JSX,
   parseXml,
   xml_document,
@@ -56,6 +57,8 @@ export class IconSet {
 
   //#region Helpers
   protected async convertSvgToSymbol(id: string, svgUrl: URL): Promise<string> {
+    const logger = await getPackageLogger();
+
     try {
       const svgResp = await fetch(svgUrl, {
         headers: {
@@ -111,7 +114,7 @@ export class IconSet {
 
       return content;
     } catch (e) {
-      console.log(e);
+      logger.error("There was an issue converting the svg to a symbol.", e);
 
       throw e;
     }

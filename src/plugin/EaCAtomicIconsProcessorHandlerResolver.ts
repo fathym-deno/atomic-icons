@@ -1,5 +1,5 @@
 import { ProcessorHandlerResolver } from "../deno.deps.ts";
-import { path } from "../src.deps.ts";
+import { getPackageLogger, path } from "../src.deps.ts";
 import {
   EaCAtomicIconsProcessor,
   isEaCAtomicIconsProcessor,
@@ -14,13 +14,15 @@ import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx
 export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
   {
     async Resolve(_ioc, appProcCfg, _eac) {
+      const logger = await getPackageLogger();
+
       if (!isEaCAtomicIconsProcessor(appProcCfg.Application.Processor)) {
         throw new Deno.errors.NotSupported(
           "The provided processor is not supported for the EaCDFSProcessorHandlerResolver.",
         );
       }
 
-      console.log("Configuring Atomic Icons...");
+      logger.debug("Configuring Atomic Icons...");
 
       const processor = appProcCfg.Application
         .Processor as EaCAtomicIconsProcessor;
@@ -28,7 +30,7 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
       let genCfg: IconSetGenerateConfig;
 
       if (typeof processor.Config === "string") {
-        console.log("From Icon Config File");
+        logger.debug("From Icon Config File");
 
         const configStr = await Deno.readTextFile(
           path.resolve(processor.Config),
@@ -38,19 +40,19 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
       }
 
       if ((processor.Config as IconSetConfig).IconMap !== undefined) {
-        console.log("From IconSetConfig");
+        logger.debug("From IconSetConfig");
 
         genCfg = {
           IconSet: processor.Config,
         } as IconSetGenerateConfig;
       } else {
-        console.log("From IconSetGenerateConfig");
+        logger.debug("From IconSetGenerateConfig");
 
         genCfg = processor.Config as IconSetGenerateConfig;
       }
 
       if (genCfg.Generate) {
-        console.log("Generating components");
+        logger.debug("Generating components");
 
         await useIconSetComponents(
           genCfg,
