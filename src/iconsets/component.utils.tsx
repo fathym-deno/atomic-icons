@@ -1,5 +1,5 @@
 import { exists, existsSync } from "../deno.deps.ts";
-import { titleCase } from "../src.deps.ts";
+import { pascalCase } from "../src.deps.ts";
 import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
 
 export type IconSetOptions = {
@@ -106,7 +106,7 @@ export async function useIconSetComponents(
   const iconExports: string[] = ['export * from "./icon.deps.ts"'];
 
   await Object.keys(config.IconSet.IconMap).forEach(async (icon) => {
-    const iconName = `${titleCase(icon)}Icon`;
+    const iconName = `${pascalCase(icon)}Icon`;
 
     curIcons = curIcons.filter((ci) => !ci.startsWith(iconName));
 
