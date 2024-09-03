@@ -3,7 +3,7 @@ export * from "../deps.ts";
 export * as path from "jsr:@std/path@1.0.2";
 export * from "jsr:@std/http@1.0.3/status";
 
-export { getPackageLogger } from "jsr:@fathym/common@0.2.33/log";
+export { getPackageLogger } from "jsr:@fathym/common@0.2.50/log";
 
 export {
   parse as parseXml,
