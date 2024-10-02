@@ -1,2 +1,2 @@
-export * from "./src/eac/_exports.ts";
+export * from "./src/eac/.exports.ts";
 export * from "./src/.exports.ts";

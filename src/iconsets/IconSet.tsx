@@ -57,7 +57,7 @@ export class IconSet {
 
   //#region Helpers
   protected async convertSvgToSymbol(id: string, svgUrl: URL): Promise<string> {
-    const logger = await getPackageLogger();
+    const logger = await getPackageLogger(import.meta);
 
     try {
       const svgResp = await fetch(svgUrl, {

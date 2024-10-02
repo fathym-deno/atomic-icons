@@ -14,7 +14,7 @@ import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx
 export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
   {
     async Resolve(_ioc, appProcCfg, _eac) {
-      const logger = await getPackageLogger();
+      const logger = await getPackageLogger(import.meta);
 
       if (!isEaCAtomicIconsProcessor(appProcCfg.Application.Processor)) {
         throw new Deno.errors.NotSupported(

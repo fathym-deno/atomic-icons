@@ -1,1 +1,1 @@
-export * from "./src/atoms/Icon.tsx";
+export { Icon } from "jsr:@fathym/atomic@0.0.171";
