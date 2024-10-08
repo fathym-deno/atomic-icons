@@ -1,1 +1,1 @@
-export { Icon } from "jsr:@fathym/atomic@0.0.171";
+export { Icon } from "jsr:@fathym/atomic@0.0.172";

@@ -1,5 +1,5 @@
+import { Icon } from "../../browser.ts";
 import { assertEquals, preactRenderToString } from "../tests.deps.ts";
-import { Icon } from "../../src/atoms/Icon.tsx";
 
 Deno.test("Icon Tests", async (t) => {
   await t.step("Sprite Test", () => {
