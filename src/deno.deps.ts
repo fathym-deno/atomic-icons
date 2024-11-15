@@ -1,9 +1,9 @@
-export { exists, existsSync } from "jsr:@fathym/common@0.2.160/path";
+export { exists, existsSync } from "jsr:@fathym/common@0.2.167/path";
 
 export {
   type EaCProcessor,
   isEaCProcessor,
-} from "jsr:@fathym/eac@0.1.71/applications";
+} from "jsr:@fathym/eac-applications@0.0.8/processors";
 
 export {
   type EaCApplicationProcessorConfig,
