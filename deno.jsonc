@@ -4,6 +4,7 @@
   "exports": {
     ".": "./mod.ts",
     "./browser": "./browser.ts",
+    // "./fresh": "./src/fresh/.mod.ts",
     "./plugin": "./plugin.ts"
   },
   "tasks": {
