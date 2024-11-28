@@ -1,6 +1,6 @@
 import { JSX, optimizeSvg, path, preactRenderToString } from "../src.deps.ts";
 import { IconSet } from "./IconSet.tsx";
-import { IconSetConfig } from "./IconSetConfig.tsx";
+import { IconSetConfig } from "./IconSetConfig.ts";
 
 export async function useIconSet(
   config: IconSetConfig,

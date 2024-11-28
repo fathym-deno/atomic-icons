@@ -1,6 +1,6 @@
 import { exists, existsSync } from "../deno.deps.ts";
 import { pascalCase } from "../src.deps.ts";
-import { IconSetGenerateConfig } from "./IconSetGenerateConfig.tsx";
+import { IconSetGenerateConfig } from "./IconSetGenerateConfig.ts";
 
 export type IconSetOptions = {
   DenoConfigPaths: string[];

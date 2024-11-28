@@ -1,5 +1,5 @@
-import { IconSetConfig } from "../iconsets/IconSetConfig.tsx";
-import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.tsx";
+import { IconSetConfig } from "../iconsets/IconSetConfig.ts";
+import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.ts";
 import { EaCProcessor, isEaCProcessor } from "../deno.deps.ts";
 
 export type EaCAtomicIconsProcessor = {

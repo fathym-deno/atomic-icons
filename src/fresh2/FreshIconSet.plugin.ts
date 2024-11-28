@@ -1,9 +1,9 @@
-import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.tsx";
-import { IconSetConfig } from "../iconsets/IconSetConfig.tsx";
+import { Plugin } from "./.deps.ts";
+import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.ts";
+import { IconSetConfig } from "../iconsets/IconSetConfig.ts";
 import { useIconSetComponents } from "../iconsets/component.utils.tsx";
-import { Plugin } from "../src.deps.ts";
-import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx";
-import { establishIconSetComponentLibraryRoute } from "./routes/iconsets/icon-set-components.tsx";
+import { establishIconSetSheetRoute } from "./routes/iconsets/fresh-icon-set-sheet.ts";
+// import { establishIconSetComponentLibraryRoute } from "./routes/iconsets/fresh-icon-set-components.ts";
 
 export async function iconSetPlugin(
   config: IconSetGenerateConfig | IconSetConfig,
@@ -17,14 +17,13 @@ export async function iconSetPlugin(
   } else {
     genCfg = config as IconSetGenerateConfig;
 
-    await useIconSetComponents(genCfg);
+    await useIconSetComponents(genCfg, "/iconset/library");
   }
 
   const iconSetSheetRoute = establishIconSetSheetRoute(genCfg.IconSet!);
 
-  const iconSetComponentLibraryRoute = establishIconSetComponentLibraryRoute(
-    genCfg,
-  );
+  // const iconSetComponentLibraryRoute =
+  //   establishIconSetComponentLibraryRoute(genCfg);
 
   return {
     name: "fathym_atomic_icons",
@@ -33,10 +32,10 @@ export async function iconSetPlugin(
         path: `/${genCfg.SpriteSheet || "iconset/icons"}`,
         ...iconSetSheetRoute,
       },
-      {
-        path: `/${genCfg.ComponentLibrary || "./iconset/library"}/[...path]`,
-        ...iconSetComponentLibraryRoute,
-      },
+      // {
+      //   path: `/${genCfg.ComponentLibrary || './iconset/library'}/[...path]`,
+      //   ...iconSetComponentLibraryRoute,
+      // },
     ],
   };
 }

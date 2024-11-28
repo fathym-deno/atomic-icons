@@ -1,6 +1,6 @@
 import { assertEquals, preactRenderToString } from "../tests.deps.ts";
 import { IconSet } from "../../src/iconsets/IconSet.tsx";
-import { IconSetConfig } from "../../src/iconsets/IconSetConfig.tsx";
+import { IconSetConfig } from "../../src/iconsets/IconSetConfig.ts";
 import { useFileIconSet } from "../../src/iconsets/sheet.utils.tsx";
 // import manifest from "../../fresh.gen.ts";
 

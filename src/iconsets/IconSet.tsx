@@ -6,7 +6,7 @@ import {
   xml_document,
   xml_node,
 } from "../src.deps.ts";
-import { IconSetConfig } from "./IconSetConfig.tsx";
+import { IconSetConfig } from "./IconSetConfig.ts";
 
 export class IconSet {
   //#region Fields

@@ -1,7 +1,7 @@
 import { EaCRuntimeHandler } from "../../../deno.deps.ts";
 import { preactRenderToString } from "../../../src.deps.ts";
 import { IconSet } from "../../../iconsets/IconSet.tsx";
-import { IconSetConfig } from "../../../iconsets/IconSetConfig.tsx";
+import { IconSetConfig } from "../../../iconsets/IconSetConfig.ts";
 
 export async function establishIconSetSheetRoute(iconSet: IconSetConfig) {
   const map = new IconSet(iconSet);

@@ -4,8 +4,8 @@ import {
   EaCAtomicIconsProcessor,
   isEaCAtomicIconsProcessor,
 } from "../eac/EaCAtomicIconsProcessor.ts";
-import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.tsx";
-import { IconSetConfig } from "../iconsets/IconSetConfig.tsx";
+import { IconSetGenerateConfig } from "../iconsets/IconSetGenerateConfig.ts";
+import { IconSetConfig } from "../iconsets/IconSetConfig.ts";
 import { useIconSetComponents } from "../iconsets/component.utils.tsx";
 // import { establishIconSetComponentLibraryRoute } from './routes/iconsets/icon-set-components.tsx';
 import { establishIconSetSheetRoute } from "./routes/iconsets/icon-set-sheet.tsx";
