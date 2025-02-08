@@ -11,6 +11,6 @@ export {
   type EaCApplicationProcessorConfig,
   type EaCProcessor,
   isEaCProcessor,
-} from "jsr:@fathym/eac-applications@0.0.49/processors";
+} from "jsr:@fathym/eac-applications@0.0.50/processors";
 
-export { type ProcessorHandlerResolver } from "jsr:@fathym/eac-applications@0.0.49/runtime/processors";
+export { type ProcessorHandlerResolver } from "jsr:@fathym/eac-applications@0.0.50/runtime/processors";
