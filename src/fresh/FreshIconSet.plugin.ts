@@ -17,6 +17,7 @@ export async function iconSetPlugin(
   } else {
     genCfg = config as IconSetGenerateConfig;
 
+    // deno-lint-ignore react-rules-of-hooks
     await useIconSetComponents(genCfg, "/iconset/library");
   }
 

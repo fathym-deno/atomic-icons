@@ -54,6 +54,7 @@ export const EaCAtomicIconsProcessorHandlerResolver: ProcessorHandlerResolver =
       if (genCfg.Generate) {
         logger.debug("Generating components");
 
+        // deno-lint-ignore react-rules-of-hooks
         await useIconSetComponents(
           genCfg,
           appProcCfg.ResolverConfig.PathPattern.replace("*", ""),

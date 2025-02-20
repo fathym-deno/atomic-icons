@@ -43,6 +43,7 @@ export class IconSet {
     const svg = (
       <svg xmlns="http://www.w3.org/2000/svg">
         <defs
+          // deno-lint-ignore react-no-danger
           dangerouslySetInnerHTML={{
             __html: symbols.join(""),
           }}
