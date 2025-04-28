@@ -8,7 +8,7 @@ export async function establishIconSetSheetRoute(iconSet: IconSetConfig) {
 
   const spriteSheet = await map.ToSheet();
 
-  let svg = preactRenderToString(spriteSheet);
+  const svg = preactRenderToString(spriteSheet);
 
   const handler: EaCRuntimeHandler<Record<string, unknown>> = (_req, _ctx) => {
     return new Response(svg, {
