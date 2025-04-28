@@ -11,11 +11,9 @@ export async function establishIconSetSheetRoute(iconSet: IconSetConfig) {
   let svg = preactRenderToString(spriteSheet);
 
   const handler: EaCRuntimeHandler<Record<string, unknown>> = (_req, _ctx) => {
-    new Promise(() => {
-      setTimeout(() => {
-        svg = preactRenderToString(spriteSheet);
-      })
-    });
+    setTimeout(() => {
+      svg = preactRenderToString(spriteSheet);
+    }, 0);
 
     return new Response(svg, {
       headers: {
