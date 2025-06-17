@@ -24,21 +24,21 @@ export function buildIconSetOptions(
   return {
     DenoConfigPaths: ["./deno.json", "./deno.jsonc"],
     get ExportsPath() {
-      return `${this.IconsDir}/_exports.ts`;
+      return `${this.IconsDir}/.exports.ts`;
     },
     OutDir: `${config.OutputDirectory || "./build/iconset"}`,
     get IconsDir() {
       return `${this.OutDir}/icons`;
     },
     IconDeps:
-      `export { Icon, type IconProps } from "@fathym/atomic-icons/browser";`,
+      `export { Icon, type IconProps, type JSX } from "@fathym/atomic-icons/browser";`,
     get IconDepsPath() {
       return `${this.IconsDir}/icon.deps.ts`;
     },
     IconFile(root: string, iconName: string, icon: string): string {
-      return `import { Icon, IconProps } from "./icon.deps.ts"
+      return `import { Icon, IconProps, JSX } from "./icon.deps.ts"
 
-export function ${iconName}(props: IconProps) {
+export function ${iconName}(props: IconProps): JSX.Element {
   return <Icon {...props} src="${root}${config.SpriteSheet}" icon="${icon}" />;
 }
 `;
@@ -98,7 +98,7 @@ export async function useIconSetComponents(
   let curIcons: string[] = [];
 
   for await (const icon of await Deno.readDir(options.IconsDir)) {
-    if (icon.isFile && icon.name != "_exports.ts") {
+    if (icon.isFile && icon.name != ".exports.ts") {
       curIcons.push(icon.name);
     }
   }
@@ -132,7 +132,7 @@ export async function useIconSetComponents(
       }
 
       if (!denoCfg.imports[importPath]) {
-        denoCfg.imports[importPath] = `${options.IconsDir}/_exports.ts`;
+        denoCfg.imports[importPath] = `${options.IconsDir}/.exports.ts`;
 
         return true;
       }
