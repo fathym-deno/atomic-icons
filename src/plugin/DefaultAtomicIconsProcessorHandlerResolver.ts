@@ -1,11 +1,11 @@
 import {
   EaCApplicationProcessorConfig,
   EaCRuntimeHandler,
+  EverythingAsCode,
   ProcessorHandlerResolver,
 } from "../deno.deps.ts";
 import { IoCContainer } from "../src.deps.ts";
 import { isEaCAtomicIconsProcessor } from "../eac/EaCAtomicIconsProcessor.ts";
-import { EverythingAsCode } from "jsr:@fathym/eac@0";
 
 export class DefaultAtomicIconsProcessorHandlerResolver
   implements ProcessorHandlerResolver {

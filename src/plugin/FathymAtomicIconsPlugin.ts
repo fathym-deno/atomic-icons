@@ -9,7 +9,7 @@ import { EaCAtomicIconsProcessorHandlerResolver } from "./EaCAtomicIconsProcesso
 export default class FathymAtomicIconsPlugin implements EaCRuntimePlugin {
   public Setup(_config: EaCRuntimeConfig): Promise<EaCRuntimePluginConfig> {
     const pluginConfig: EaCRuntimePluginConfig = {
-      Name: "FathymEaCPlugin",
+      Name: "FathymAtomicIconsPlugin",
       IoC: new IoCContainer(),
     };
 
