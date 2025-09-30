@@ -16,6 +16,6 @@
         "--inspect-wait"
       ],
       "attachSimplePort": 9229
-    },
+    }
   ]
 }

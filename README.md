@@ -23,17 +23,17 @@ Prefer semantic names decoupled from the upstream set. For example, map `materia
 
 ## Quick Start
 
-1) Create a config describing your icon set and generation options.
+1. Create a config describing your icon set and generation options.
 
 ```ts
 // ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from "@fathym/atomic-icons";
+import { IconSetConfig, IconSetGenerateConfig } from '@fathym/atomic-icons';
 
 export const curIconSetConfig: IconSetConfig = {
   IconMap: {
-    "x-circle": "https://api.iconify.design/bi:x-circle.svg",
-    "check-circle": "https://api.iconify.design/material-symbols:check-circle.svg",
-    "exclaim": "https://api.iconify.design/bi:exclamation-circle.svg",
+    'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
+    'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
+    'exclaim': 'https://api.iconify.design/bi:exclamation-circle.svg',
   },
   Optimize: true, // run SVGO on the generated sheet
 };
@@ -45,22 +45,22 @@ export const curIconSetGenerateConfig: IconSetGenerateConfig = {
   // OutputDirectory: "./build/iconset",
   IconSet: curIconSetConfig,
   // URL path where the sheet is available (static or served).
-  SpriteSheet: "/iconset/icons",
+  SpriteSheet: '/iconset/icons',
 };
 ```
 
-2) Generate assets via a script and Deno task.
+2. Generate assets via a script and Deno task.
 
 ```ts
 // ./scripts/icons.atomic.ts
-import { useFileIconSet, useIconSetComponents } from "@fathym/atomic-icons";
-import { curIconSetConfig, curIconSetGenerateConfig } from "../fathym-atomic-icons.config.ts";
+import { useFileIconSet, useIconSetComponents } from '@fathym/atomic-icons';
+import { curIconSetConfig, curIconSetGenerateConfig } from '../fathym-atomic-icons.config.ts';
 
 // Generate a physical sheet. Adjust the path for your static files setup.
-await useFileIconSet("./static/icons.sprite.svg", curIconSetConfig);
+await useFileIconSet('./static/icons.sprite.svg', curIconSetConfig);
 
 // Generate typed components + add a Deno import alias for easy consumption.
-await useIconSetComponents(curIconSetGenerateConfig, "");
+await useIconSetComponents(curIconSetGenerateConfig, '');
 ```
 
 ```jsonc
@@ -76,17 +76,17 @@ Run: `deno task icons`
 
 Add `build/` to your `.gitignore`.
 
-3) Use your icons.
+3. Use your icons.
 
 ```tsx
 // Option A: Use the low-level <Icon /> with your sheet
-import { Icon } from "@fathym/atomic-icons/browser";
+import { Icon } from '@fathym/atomic-icons/browser';
 
 export default function Page() {
   return (
     <>
-      <Icon src="/iconset/icons" icon="x-circle" />
-      <Icon src="/iconset/icons" icon="check-circle" class="text-blue-500 w-[50px] h-[50px]" />
+      <Icon src='/iconset/icons' icon='x-circle' />
+      <Icon src='/iconset/icons' icon='check-circle' class='text-blue-500 w-[50px] h-[50px]' />
     </>
   );
 }
@@ -94,14 +94,14 @@ export default function Page() {
 
 ```tsx
 // Option B: Use generated components (added under the alias below)
-import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from "$fathym/atomic-icons";
+import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from '$fathym/atomic-icons';
 
 export default function Page() {
   return (
     <>
       <XCircleIcon />
-      <CheckCircleIcon class="text-purple-500 w-[50px] h-[50px]" />
-      <ExclaimIcon class="text-purple-500 w-[24px] h-[24px]" />
+      <CheckCircleIcon class='text-purple-500 w-[50px] h-[50px]' />
+      <ExclaimIcon class='text-purple-500 w-[24px] h-[24px]' />
     </>
   );
 }
@@ -150,4 +150,3 @@ Thanks to the authors whose posts informed parts of this implementation:
 
 - https://rodneylab.com/deno-fresh-svg-sprites/
 - https://benadam.me/thoughts/react-svg-sprites/
-

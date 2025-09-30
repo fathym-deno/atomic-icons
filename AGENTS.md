@@ -71,15 +71,18 @@ If you are iterating on docs/examples only, at minimum run `deno fmt`.
 
 ## Common Tasks
 
-1) Update README
+1. Update README
+
 - Keep instructions current with the exports in `mod.ts`, `browser.ts`, and generator behaviors.
 - Fix typos and ensure links are valid.
 
-2) Add an icon example
+2. Add an icon example
+
 - Update `fathym-atomic-icons.config.ts` in examples.
 - Show how to run `deno task icons`.
 
-3) Extend generation behavior
+3. Extend generation behavior
+
 - Keep options on `IconSetConfig` / `IconSetGenerateConfig` minimal and orthogonal.
 - Update `src/iconsets/component.utils.tsx` and add tests.
 
@@ -96,4 +99,3 @@ If you are iterating on docs/examples only, at minimum run `deno fmt`.
 - Prefer surgical diffs. Avoid mass refactors.
 - Do not introduce new tooling (formatters, linters) beyond what's configured.
 - When in doubt about public API changes, propose in PR description before implementing broadly.
-

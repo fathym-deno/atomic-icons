@@ -230,4 +230,3 @@ Acceptance criteria:
 1. Library Hardening → 2. CLI → 3. Fresh Plugin → 4. EaC finalize → 5. Standalone Server → 6. SaaS → 7. Examples/Docs → 8. Community
 
 The output of each step should leave the project in a shippable state, enabling early adopters to use the pieces they need while later stages are under development.
-
