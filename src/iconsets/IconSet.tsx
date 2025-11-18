@@ -63,31 +63,55 @@ export class IconSet {
     try {
       const svgResp = await fetch(svgUrl, {
         headers: {
+          // You could likely drop this header entirely, but leaving it if needed:
           "content-type": "application/json",
         },
       });
 
-      if (!svgResp.ok) {
-        throw new Deno.errors.BadResource(
-          `Request failed with status ${svgResp.status}`,
-        );
+      // 404 first, then generic !ok
+      if (svgResp.status === 404) {
+        let body = "";
+        try {
+          body = await svgResp.text();
+        } catch {
+          // ignore body read failure
+        }
+
+        const msg = `The requested url "${svgUrl}" could not be found (404).` +
+          (body ? ` Body: ${body.slice(0, 2000)}` : "");
+
+        logger.error("Icon fetch 404", { id, url: svgUrl.toString(), body });
+
+        throw new Deno.errors.NotFound(msg);
+      } else if (!svgResp.ok) {
+        let body = "";
+        try {
+          body = await svgResp.text();
+        } catch {
+          // ignore body read failure
+        }
+
+        const msg =
+          `Request to ${svgUrl} failed with status ${svgResp.status}.` +
+          (body ? ` Body: ${body.slice(0, 2000)}` : "");
+
+        logger.error("Icon fetch failed", {
+          id,
+          url: svgUrl.toString(),
+          status: svgResp.status,
+          body,
+        });
+
+        throw new Deno.errors.BadResource(msg);
       } else if (!svgResp.body) {
         throw new Deno.errors.UnexpectedEof(
           `The download url ${svgUrl} doesn't contain a file to download`,
-        );
-      } else if (svgResp.status === 404) {
-        throw new Deno.errors.NotFound(
-          `The requested url "${svgUrl}" could not be found`,
         );
       }
 
       const svgMarkup = await svgResp.text();
 
       const svgObject = parseXml(svgMarkup, {});
-
-      // const svgElement = (svgObject['~children'][0] as xml_node)[
-      //   '~children'
-      // ][0] as xml_node;
 
       const svgElement = svgObject["~children"][0] as xml_node;
 
@@ -100,7 +124,6 @@ export class IconSet {
             "@viewBox": viewBox,
             ...svgElement["~children"].reduce((acc, c) => {
               acc[c["~name"]] = c;
-
               return acc;
             }, {} as Record<string, unknown>),
           },
@@ -115,8 +138,11 @@ export class IconSet {
 
       return content;
     } catch (e) {
-      logger.error("There was an issue converting the svg to a symbol.", e);
-
+      logger.error("There was an issue converting the svg to a symbol.", {
+        id,
+        url: svgUrl.toString(),
+        error: e,
+      });
       throw e;
     }
   }
