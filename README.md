@@ -1,6 +1,34 @@
+---
+FrontmatterVersion: 1
+DocumentType: Guide
+Title: Fathym Atomic Icons
+Summary: Build, optimize, and consume SVG icon sprite sheets with typed Preact icon components for Deno projects.
+Created: 2025-11-20
+Updated: 2025-11-20
+Owners:
+  - fathym
+References:
+  - Label: Micro-Frameworks README
+    Path: ../README.md
+  - Label: Micro-Frameworks AGENTS
+    Path: ../AGENTS.md
+  - Label: Micro-Frameworks GUIDE
+    Path: ../GUIDE.md
+  - Label: Workspace README
+    Path: ../../README.md
+  - Label: Workspace AGENTS
+    Path: ../../AGENTS.md
+  - Label: Workspace GUIDE
+    Path: ../../WORKSPACE_GUIDE.md
+  - Label: Project AGENTS Guide
+    Path: ./AGENTS.md
+  - Label: Project GUIDE
+    Path: ./GUIDE.md
+---
+
 # Fathym Atomic Icons
 
-Build, optimize, and consume SVG icon sprite sheets with ergonomic, typed icon components for Deno projects. Works standalone or alongside Fathym's Everything‑as‑Code (EaC) runtime.
+Build, optimize, and consume SVG icon sprite sheets with ergonomic, typed icon components for Deno projects. Works standalone or alongside Fathym's Everything-as-Code (EaC) runtime.
 
 ## Install
 
@@ -15,11 +43,9 @@ Add imports to your `deno.json` or `deno.jsonc` using JSR. Pin a version for sta
 }
 ```
 
-> Note: You can also use the deno.land URL if preferred, but JSR is recommended for resolution and versioning.
-
 ## Naming Icons
 
-Prefer semantic names decoupled from the upstream set. For example, map `material-symbols:check-circle` to `check-circle`. This keeps usage consistent across the app and makes future set swaps painless.
+Prefer semantic names decoupled from the upstream set (e.g., map `material-symbols:check-circle` to `check-circle`) to keep usage consistent and swaps painless.
 
 ## Quick Start
 
@@ -35,16 +61,12 @@ export const curIconSetConfig: IconSetConfig = {
     'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
     'exclaim': 'https://api.iconify.design/bi:exclamation-circle.svg',
   },
-  Optimize: true, // run SVGO on the generated sheet
+  Optimize: true,
 };
 
 export const curIconSetGenerateConfig: IconSetGenerateConfig = {
-  // When true, write typed <XxxIcon /> wrappers and add an import alias.
   Exports: true,
-  // Optional: where generated files go (defaults to ./build/iconset)
-  // OutputDirectory: "./build/iconset",
   IconSet: curIconSetConfig,
-  // URL path where the sheet is available (static or served).
   SpriteSheet: '/iconset/icons',
 };
 ```
@@ -56,15 +78,11 @@ export const curIconSetGenerateConfig: IconSetGenerateConfig = {
 import { useFileIconSet, useIconSetComponents } from '@fathym/atomic-icons';
 import { curIconSetConfig, curIconSetGenerateConfig } from '../fathym-atomic-icons.config.ts';
 
-// Generate a physical sheet. Adjust the path for your static files setup.
 await useFileIconSet('./static/icons.sprite.svg', curIconSetConfig);
-
-// Generate typed components + add a Deno import alias for easy consumption.
 await useIconSetComponents(curIconSetGenerateConfig, '');
 ```
 
 ```jsonc
-// deno.jsonc
 {
   "tasks": {
     "icons": "deno run -A ./scripts/icons.atomic.ts"
@@ -72,14 +90,11 @@ await useIconSetComponents(curIconSetGenerateConfig, '');
 }
 ```
 
-Run: `deno task icons`
-
-Add `build/` to your `.gitignore`.
+Run: `deno task icons`. Add `build/` to `.gitignore`.
 
 3. Use your icons.
 
 ```tsx
-// Option A: Use the low-level <Icon /> with your sheet
 import { Icon } from '@fathym/atomic-icons/browser';
 
 export default function Page() {
@@ -93,7 +108,6 @@ export default function Page() {
 ```
 
 ```tsx
-// Option B: Use generated components (added under the alias below)
 import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from '$fathym/atomic-icons';
 
 export default function Page() {
@@ -107,7 +121,7 @@ export default function Page() {
 }
 ```
 
-When `Exports` is true, `useIconSetComponents` writes an import alias to your `deno.json(c)`:
+When `Exports` is true, `useIconSetComponents` writes an import alias:
 
 ```jsonc
 {
@@ -119,34 +133,17 @@ When `Exports` is true, `useIconSetComponents` writes an import alias to your `d
 
 ## Serving the Sprite Sheet
 
-- Static: Commit or copy the generated `./static/icons.sprite.svg` and reference it via `<Icon src="/icons.sprite.svg" ... />`.
-- EaC runtime: This package also provides an EaC processor/handler that can serve the sheet dynamically at the `SpriteSheet` path. If you are using Fathym's runtime, wire up `EaCAtomicIconsProcessor` with your `IconSet` config and route pattern. (See the `src/plugin` folder for details.)
+Place the generated sheet where your server can serve it (e.g., `/static/icons.sprite.svg`) and point `SpriteSheet` to that path. Generated components expect the sheet URL you provide.
 
-## Icon Sources
+## Development Tasks
 
-Any SVG can go into the sprite sheet. Good sources:
+- Format/lint/check: `deno fmt`, `deno lint`, `deno check`.
+- Tests: `deno task test`.
+- Build: `deno task build` (fmt + lint + publish check + tests).
+- Tailwind config generation: `deno task build:tailwind`.
+- Publish flows: `deno task publish:check`, `deno task npm:build/publish`.
 
-- Icônes: https://icones.js.org/
-- Simple Icons: https://simpleicons.org/
-- Flowbite Icons: https://flowbite.com/icons
+## Notes
 
-## API Reference (quick)
-
-- `IconSetConfig`: `{ IconMap: Record<string, string | URL>; Optimize?: boolean }`
-- `useFileIconSet(outputPath, config)`: Renders and writes an SVG sheet, runs SVGO when `Optimize` is true.
-- `IconSetGenerateConfig`: `{ IconSet, SpriteSheet, Exports?, Imports?, OutputDirectory?, Generate? }`
-- `useIconSetComponents(config, root)`: Generates typed icon components and (optionally) adds an import alias to your Deno config. `root` should be the path prefix used when resolving `SpriteSheet` (often `""` for absolute paths).
-- Browser exports: `@fathym/atomic-icons/browser` exposes `{ Icon, type IconProps, type JSX }`.
-
-## Tips
-
-- Keep names semantic and stable (`check-circle`, `x-circle`, etc.).
-- Pin package versions in `deno.json(c)` for reproducible builds.
-- If you change `SpriteSheet`, re-run the `icons` task so generated components point to the correct path.
-
-## Acknowledgements
-
-Thanks to the authors whose posts informed parts of this implementation:
-
-- https://rodneylab.com/deno-fresh-svg-sprites/
-- https://benadam.me/thoughts/react-svg-sprites/
+- Keep semantic icon naming and document any licensed/external sets you map.
+- Maintain examples in this README aligned with current exports in `mod.ts`, `browser.ts`, and generator behavior.
