@@ -7,10 +7,10 @@ permissions:
 on:
   push:
   workflow_dispatch:
-  
+
 env:
   MainBranch: main
-  MainFormat: '${major}.${minor}.${patch}'
+  MainFormat: "${major}.${minor}.${patch}"
 
 jobs:
   build:
@@ -53,14 +53,14 @@ jobs:
         id: version
         uses: paulhatch/semantic-version@v5.0.2
         with:
-          tag_prefix: 'v'
-          major_pattern: '(MAJOR)'
-          minor_pattern: '(MINOR)'
+          tag_prefix: "v"
+          major_pattern: "(MAJOR)"
+          minor_pattern: "(MINOR)"
           version_format: ${{ steps.mainFormat.outputs.format || steps.prereleaseFormat.outputs.format }}
           # namespace: ${{ steps.vars.outputs.currentBranch == env.MainBranch && null || steps.vars.outputs.currentBranch }}
           # search_commit_body: false
           bump_each_commit: true
-          user_format_type: 'json'
+          user_format_type: "json"
           enable_prerelease_mode: ${{ steps.vars.outputs.currentBranch != env.MainBranch }}
 
       # - name: NPM Package Build

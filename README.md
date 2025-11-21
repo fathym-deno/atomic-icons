@@ -53,13 +53,14 @@ Prefer semantic names decoupled from the upstream set (e.g., map `material-symbo
 
 ```ts
 // ./fathym-atomic-icons.config.ts
-import { IconSetConfig, IconSetGenerateConfig } from '@fathym/atomic-icons';
+import { IconSetConfig, IconSetGenerateConfig } from "@fathym/atomic-icons";
 
 export const curIconSetConfig: IconSetConfig = {
   IconMap: {
-    'x-circle': 'https://api.iconify.design/bi:x-circle.svg',
-    'check-circle': 'https://api.iconify.design/material-symbols:check-circle.svg',
-    'exclaim': 'https://api.iconify.design/bi:exclamation-circle.svg',
+    "x-circle": "https://api.iconify.design/bi:x-circle.svg",
+    "check-circle":
+      "https://api.iconify.design/material-symbols:check-circle.svg",
+    "exclaim": "https://api.iconify.design/bi:exclamation-circle.svg",
   },
   Optimize: true,
 };
@@ -67,7 +68,7 @@ export const curIconSetConfig: IconSetConfig = {
 export const curIconSetGenerateConfig: IconSetGenerateConfig = {
   Exports: true,
   IconSet: curIconSetConfig,
-  SpriteSheet: '/iconset/icons',
+  SpriteSheet: "/iconset/icons",
 };
 ```
 
@@ -75,11 +76,14 @@ export const curIconSetGenerateConfig: IconSetGenerateConfig = {
 
 ```ts
 // ./scripts/icons.atomic.ts
-import { useFileIconSet, useIconSetComponents } from '@fathym/atomic-icons';
-import { curIconSetConfig, curIconSetGenerateConfig } from '../fathym-atomic-icons.config.ts';
+import { useFileIconSet, useIconSetComponents } from "@fathym/atomic-icons";
+import {
+  curIconSetConfig,
+  curIconSetGenerateConfig,
+} from "../fathym-atomic-icons.config.ts";
 
-await useFileIconSet('./static/icons.sprite.svg', curIconSetConfig);
-await useIconSetComponents(curIconSetGenerateConfig, '');
+await useFileIconSet("./static/icons.sprite.svg", curIconSetConfig);
+await useIconSetComponents(curIconSetGenerateConfig, "");
 ```
 
 ```jsonc
@@ -95,27 +99,35 @@ Run: `deno task icons`. Add `build/` to `.gitignore`.
 3. Use your icons.
 
 ```tsx
-import { Icon } from '@fathym/atomic-icons/browser';
+import { Icon } from "@fathym/atomic-icons/browser";
 
 export default function Page() {
   return (
     <>
-      <Icon src='/iconset/icons' icon='x-circle' />
-      <Icon src='/iconset/icons' icon='check-circle' class='text-blue-500 w-[50px] h-[50px]' />
+      <Icon src="/iconset/icons" icon="x-circle" />
+      <Icon
+        src="/iconset/icons"
+        icon="check-circle"
+        class="text-blue-500 w-[50px] h-[50px]"
+      />
     </>
   );
 }
 ```
 
 ```tsx
-import { CheckCircleIcon, ExclaimIcon, XCircleIcon } from '$fathym/atomic-icons';
+import {
+  CheckCircleIcon,
+  ExclaimIcon,
+  XCircleIcon,
+} from "$fathym/atomic-icons";
 
 export default function Page() {
   return (
     <>
       <XCircleIcon />
-      <CheckCircleIcon class='text-purple-500 w-[50px] h-[50px]' />
-      <ExclaimIcon class='text-purple-500 w-[24px] h-[24px]' />
+      <CheckCircleIcon class="text-purple-500 w-[50px] h-[50px]" />
+      <ExclaimIcon class="text-purple-500 w-[24px] h-[24px]" />
     </>
   );
 }
