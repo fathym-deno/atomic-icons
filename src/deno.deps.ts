@@ -1,4 +1,4 @@
-export { exists, existsSync } from "jsr:@fathym/common@0.2.274/path";
+export { exists, existsSync } from "jsr:@fathym/common@0.2.287-integration/path";
 
 export { type EverythingAsCode } from "jsr:@fathym/eac@0.2.131";
 export {
