@@ -15,5 +15,5 @@ export {
   type EaCApplicationProcessorConfig,
   type EaCProcessor,
   isEaCProcessor,
-} from "jsr:@fathym/eac-applications@0.0.242-mcp-processor/processors";
-export { type ProcessorHandlerResolver } from "jsr:@fathym/eac-applications@0.0.242-mcp-processor/runtime/processors";
+} from "jsr:@fathym/eac-applications@0.0.243-mcp-processor/processors";
+export { type ProcessorHandlerResolver } from "jsr:@fathym/eac-applications@0.0.243-mcp-processor/runtime/processors";
