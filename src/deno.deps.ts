@@ -1,7 +1,7 @@
 export {
   exists,
   existsSync,
-} from "jsr:@fathym/common@0.2.289-integration/path";
+} from "jsr:@fathym/common@0.2.292-integration/path";
 
 export { type EverythingAsCode } from "jsr:@fathym/eac@0.2.141-hmis";
 export {
