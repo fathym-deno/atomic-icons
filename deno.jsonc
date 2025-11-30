@@ -12,7 +12,7 @@
     "build:fmt": "deno fmt",
     "build:lint": "deno lint",
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-    "deploy": "deno task build && ftm git",
+    "deploy": "deno task build && fathym git",
     "npm:build": "deno run -A scripts/npm.build.ts",
     "npm:publish": "npm publish ./build --access public",
     "publish:check": "deno publish --dry-run --allow-dirty",
