@@ -1,10 +1,9 @@
 {
   "name": "@fathym/atomic-icons",
-  "version": "0.0.0",
+  "version": "0.0.124-eac-cascade",
   "exports": {
     ".": "./mod.ts",
     "./browser": "./browser.ts",
-    // "./fresh": "./src/fresh/.mod.ts",
     "./plugin": "./plugin.ts"
   },
   "tasks": {
@@ -29,19 +28,34 @@
     "jsxImportSource": "preact"
   },
   "fmt": {
-    "include": ["./**/*.ts", "./**/*.tsx"],
+    "include": [
+      "./**/*.ts",
+      "./**/*.tsx"
+    ],
     "options": {},
-    "exclude": ["_fresh"]
+    "exclude": [
+      "_fresh"
+    ]
   },
   "lint": {
-    "include": ["./**/*.ts", "./**/*.tsx"],
+    "include": [
+      "./**/*.ts",
+      "./**/*.tsx"
+    ],
     "rules": {
       "include": [],
       "exclude": [],
-      "tags": ["fresh", "recommended"]
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
     },
-    "exclude": ["_fresh"]
+    "exclude": [
+      "_fresh"
+    ]
   },
-  "unstable": ["kv"],
+  "unstable": [
+    "kv"
+  ],
   "lock": false
 }
