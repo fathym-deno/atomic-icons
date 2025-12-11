@@ -17,7 +17,7 @@
     "publish:check": "deno publish --dry-run --allow-dirty",
     "test": "deno test -A ./tests/tests.ts --coverage=cov",
     "preview": "deno run -A main.ts",
-    "version": "deno run -A jsr:@fathym/common@0/build/version"
+    "version": "deno run -A jsr:@fathym/common@0.2.306/build/version"
   },
   "imports": {
     "preact": "npm:preact@10.20.1",
