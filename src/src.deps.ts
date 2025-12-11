@@ -5,7 +5,7 @@ export * from "jsr:@std/http@1.0.13/status";
 
 export { getPackageLogger } from "jsr:@fathym/common@0.2.306/log";
 
-export type { ProcessorHandlerResult } from "jsr:@fathym/eac-applications@0.0.314-mcp-processor/runtime/processors";
+export type { ProcessorHandlerResult } from "jsr:@fathym/eac-applications@0.0.315-mcp-processor/runtime/processors";
 
 export {
   parse as parseXml,

@@ -37,7 +37,7 @@ Add imports to your `deno.json` or `deno.jsonc` using JSR. Pin a version for sta
 ```ts
 {
   "imports": {
-    "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.125-eac-cascade",
+    "@fathym/atomic-icons": "jsr:@fathym/atomic-icons@0.0.126-eac-cascade",
     "@fathym/atomic-icons/browser": "jsr:@fathym/atomic-icons/browser@^0.0.0"
   }
 }
